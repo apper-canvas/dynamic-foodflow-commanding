@@ -292,10 +292,10 @@ className="grid grid-cols-2 sm:grid-cols-4 gap-3 sm:gap-4 mb-4 sm:mb-6"
               </motion.div>
             ))}
           </div>
-        </div>
+</div>
       )}
     </div>
-    </div>
+  );
 };
 
 export default FavoritesPage;
