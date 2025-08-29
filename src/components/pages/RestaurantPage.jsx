@@ -22,7 +22,8 @@ const RestaurantPage = () => {
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState("");
 const [isFavorite, setIsFavorite] = useState(false);
-  const [loadingFavorite, setLoadingFavorite] = useState(false);
+const [loadingFavorite, setLoadingFavorite] = useState(false);
+  const [showInteractiveFeatures, setShowInteractiveFeatures] = useState(true);
   const loadRestaurantData = async () => {
     setLoading(true);
     setError("");
@@ -156,8 +157,8 @@ const toggleFavorite = async () => {
       <motion.div
         initial={{ opacity: 0, y: 20 }}
         animate={{ opacity: 1, y: 0 }}
-      >
-        <Card className="p-0 overflow-hidden">
+>
+        <Card className="p-0 overflow-hidden interactive-restaurant-card">
           <div className="relative h-48 bg-gradient-to-br from-gray-200 to-gray-300">
             {restaurant.image ? (
               <img 

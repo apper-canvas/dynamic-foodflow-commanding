@@ -19,10 +19,12 @@ const HomePage = ({ onSearch }) => {
     { id: "fast_delivery", label: "Fast Delivery", icon: "Zap", count: 12 },
     { id: "free_delivery", label: "Free Delivery", icon: "Truck", count: 8 },
     { id: "vegetarian", label: "Pure Veg", icon: "Leaf", count: 15 },
-{ id: "offers", label: "Special Offers", icon: "Percent", count: 8 },
-    { id: "top_rated", label: "Top Rated", icon: "Star", count: 10 },
-    { id: "new", label: "New Arrivals", icon: "Sparkles", count: 4 },
-    { id: "flash_deals", label: "Flash Deals", icon: "Zap", count: 4 }
+{ id: "offers", label: "Special Offers", icon: "Percent", count: 8, interactive: true },
+    { id: "top_rated", label: "Top Rated", icon: "Star", count: 10, interactive: true },
+    { id: "new", label: "New Arrivals", icon: "Sparkles", count: 4, interactive: true },
+    { id: "flash_deals", label: "Flash Deals", icon: "Zap", count: 4, interactive: true },
+    { id: "trending", label: "Trending Now", icon: "TrendingUp", count: 6, interactive: true },
+    { id: "healthy", label: "Healthy Choice", icon: "Apple", count: 5, interactive: true }
   ];
 
   const quickCategories = [
@@ -148,25 +150,39 @@ return (
         </div>
       </motion.section>
 
-{/* Special Offers Section */}
+{/* Interactive Special Offers Section */}
       {specialOffers.length > 0 && (
         <motion.div
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
-          className="mb-8"
+          className="mb-8 interactive-section"
         >
-          <div className="flex items-center justify-between mb-4">
+          <motion.div 
+            className="flex items-center justify-between mb-4"
+            whileHover={{ scale: 1.02 }}
+            transition={{ duration: 0.2 }}
+          >
             <div className="flex items-center gap-2">
-              <ApperIcon name="Percent" size={20} className="text-primary-500 animate-pulse" />
+              <motion.div
+                animate={{ rotate: [0, 5, -5, 0] }}
+                transition={{ duration: 2, repeat: Infinity }}
+              >
+                <ApperIcon name="Percent" size={20} className="text-primary-500" />
+              </motion.div>
               <h2 className="text-lg font-display font-semibold text-secondary-700">
                 Special Offers Just for You ✨
               </h2>
             </div>
-            <Badge variant="accent" size="sm" className="bg-gradient-to-r from-primary-500 via-accent-500 to-primary-600 animate-pulse shadow-lg">
-              <ApperIcon name="Clock" size={12} />
-              Limited Time
-            </Badge>
-          </div>
+            <motion.div
+              whileHover={{ scale: 1.1 }}
+              whileTap={{ scale: 0.9 }}
+            >
+              <Badge variant="accent" size="sm" className="bg-gradient-to-r from-primary-500 via-accent-500 to-primary-600 shadow-lg interactive-badge">
+                <ApperIcon name="Clock" size={12} />
+                Limited Time
+              </Badge>
+            </motion.div>
+          </motion.div>
           <RestaurantGrid
             restaurants={specialOffers}
             onRestaurantClick={handleRestaurantClick}
@@ -174,7 +190,6 @@ return (
           />
         </motion.div>
       )}
-
       {/* AI Recommendations Section */}
       {recommendations && !loadingRecommendations && (
         <motion.section

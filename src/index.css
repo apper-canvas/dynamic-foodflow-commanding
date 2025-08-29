@@ -72,7 +72,57 @@
   color: white;
   font-weight: 500;
 }
-
 .Toastify__progress-bar {
   background: rgba(255, 255, 255, 0.3);
+}
+
+/* Interactive Elements */
+@layer components {
+  .interactive-button {
+    @apply transform transition-all duration-200 hover:scale-105 hover:shadow-sm active:scale-95;
+  }
+  
+  .interactive-badge {
+    @apply transform transition-all duration-200 hover:scale-110 cursor-pointer;
+  }
+  
+  .interactive-section {
+    @apply transition-all duration-300 hover:shadow-sm;
+  }
+  
+  .interactive-restaurant-card {
+    @apply transition-all duration-300 hover:shadow-xl hover:scale-[1.02];
+  }
+  
+  .swipe-container {
+    @apply touch-pan-y select-none;
+  }
+  
+  .gesture-hint {
+    @apply opacity-50 text-xs text-center py-1 transition-opacity duration-300;
+  }
+  
+  .gesture-hint:hover {
+    @apply opacity-100;
+  }
+}
+
+/* Enhanced Animations */
+@keyframes pulse-gentle {
+  0%, 100% { opacity: 1; }
+  50% { opacity: 0.8; }
+}
+
+@keyframes wiggle {
+  0%, 7%, 100% { transform: rotate(0deg); }
+  25% { transform: rotate(3deg); }
+  75% { transform: rotate(-3deg); }
+}
+
+.animate-pulse-gentle {
+  animation: pulse-gentle 2s ease-in-out infinite;
+}
+
+.animate-wiggle {
+  animation: wiggle 1s ease-in-out infinite;
 }
