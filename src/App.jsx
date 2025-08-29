@@ -90,13 +90,17 @@ const App = () => {
               path="/restaurant/:id" 
               element={<RestaurantPage />} 
             />
-            <Route 
+<Route 
               path="/orders" 
               element={<OrdersPage />} 
             />
             <Route 
-              path="/track/:orderId" 
+              path="/order/:orderId" 
               element={<TrackingPage />} 
+            />
+            <Route 
+              path="/track/:orderId" 
+              element={<TrackingPage />}
             />
             <Route 
 path="/account" 
