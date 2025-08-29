@@ -9,6 +9,7 @@ import Badge from "@/components/atoms/Badge";
 
 const DishCard = ({ dish, onAddToCart, className }) => {
 const [quantity, setQuantity] = useState(0);
+  const [isFavorite, setIsFavorite] = useState(false);
   const [showCustomization, setShowCustomization] = useState(false);
   const [showAllergenInfo, setShowAllergenInfo] = useState(false);
 
@@ -309,8 +310,32 @@ const showRecommendationBadge = dish.affinityScore && dish.affinityScore > 80;
               </div>
             )}
           </motion.div>
-        )}
+)}
       </Card>
+      
+      {/* Favorite Button */}
+      <button
+        onClick={async () => {
+          try {
+            const { favoritesService } = await import("@/services/api/favoritesService");
+            const result = await favoritesService.toggleFavorite({
+              ...dish,
+              type: 'dish'
+            });
+            setIsFavorite(result.action === 'added');
+            toast.success(result.action === 'added' ? `${dish.name} added to favorites` : `${dish.name} removed from favorites`);
+          } catch (err) {
+            toast.error("Failed to update favorites");
+          }
+        }}
+        className="absolute top-2 right-2 z-20 w-8 h-8 bg-white/80 backdrop-blur-sm rounded-full flex items-center justify-center shadow-sm hover:shadow-md transition-all duration-200 hover:bg-white"
+      >
+        <ApperIcon 
+          name={isFavorite ? "Heart" : "Heart"} 
+          size={14} 
+          className={isFavorite ? "text-red-500 fill-red-500" : "text-gray-600 hover:text-red-500"}
+        />
+      </button>
       
       {isRecommended && (
         <motion.div

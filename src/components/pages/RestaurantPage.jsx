@@ -21,8 +21,8 @@ const RestaurantPage = () => {
   const [cart, setCart] = useState([]);
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState("");
-  const [isFavorite, setIsFavorite] = useState(false);
-
+const [isFavorite, setIsFavorite] = useState(false);
+  const [loadingFavorite, setLoadingFavorite] = useState(false);
   const loadRestaurantData = async () => {
     setLoading(true);
     setError("");
@@ -44,9 +44,23 @@ const RestaurantPage = () => {
   useEffect(() => {
     if (id) {
       loadRestaurantData();
-    }
+}
   }, [id]);
 
+  useEffect(() => {
+    const checkFavoriteStatus = async () => {
+      if (restaurant) {
+        try {
+          const { favoritesService } = await import("@/services/api/favoritesService");
+          const favorite = await favoritesService.isFavorite(restaurant.Id, 'restaurant');
+          setIsFavorite(favorite);
+        } catch (err) {
+          console.error("Failed to check favorite status:", err);
+        }
+      }
+    };
+    checkFavoriteStatus();
+  }, [restaurant]);
   const handleAddToCart = (dish) => {
     if (dish.quantity === 0) {
       setCart(prev => prev.filter(item => item.Id !== dish.Id));
@@ -91,9 +105,23 @@ const RestaurantPage = () => {
     });
   };
 
-  const toggleFavorite = () => {
-    setIsFavorite(!isFavorite);
-    toast.success(isFavorite ? "Removed from favorites" : "Added to favorites");
+const toggleFavorite = async () => {
+    if (!restaurant || loadingFavorite) return;
+    
+    setLoadingFavorite(true);
+    try {
+      const { favoritesService } = await import("@/services/api/favoritesService");
+      const result = await favoritesService.toggleFavorite({
+        ...restaurant,
+        type: 'restaurant'
+      });
+      setIsFavorite(result.action === 'added');
+      toast.success(result.action === 'added' ? `${restaurant.name} added to favorites` : `${restaurant.name} removed from favorites`);
+    } catch (err) {
+      toast.error("Failed to update favorites");
+    } finally {
+      setLoadingFavorite(false);
+    }
   };
 
   if (loading) {

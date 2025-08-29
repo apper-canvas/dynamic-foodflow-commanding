@@ -11,6 +11,7 @@ import TrackingPage from "@/components/pages/TrackingPage";
 import AccountPage from "@/components/pages/AccountPage";
 import SubscriptionPage from "@/components/pages/SubscriptionPage";
 import RecommendationsPage from "@/components/pages/RecommendationsPage";
+import FavoritesPage from "@/components/pages/FavoritesPage";
 import { addressService } from "@/services/api/addressService";
 const App = () => {
   const [currentAddress, setCurrentAddress] = useState("");
@@ -100,9 +101,13 @@ const App = () => {
 path="/account" 
               element={<AccountPage />} 
             />
-            <Route 
+<Route 
               path="/subscriptions" 
               element={<SubscriptionPage />} 
+            />
+            <Route 
+              path="/favorites" 
+              element={<FavoritesPage />} 
             />
           </Routes>
         </main>
