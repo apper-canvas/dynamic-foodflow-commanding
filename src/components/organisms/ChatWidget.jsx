@@ -1,15 +1,15 @@
-import { useState, useEffect, useRef } from "react";
-import { motion, AnimatePresence } from "framer-motion";
+import React, { useEffect, useRef, useState } from "react";
+import { AnimatePresence, motion } from "framer-motion";
 import { toast } from "react-toastify";
-import { cn } from "@/utils/cn";
-import ApperIcon from "@/components/ApperIcon";
-import Button from "@/components/atoms/Button";
-import Input from "@/components/atoms/Input";
-import Card from "@/components/atoms/Card";
-import Badge from "@/components/atoms/Badge";
-import ChatMessage from "@/components/molecules/ChatMessage";
 import { chatService } from "@/services/api/chatService";
 import { orderService } from "@/services/api/orderService";
+import { cn } from "@/utils/cn";
+import ApperIcon from "@/components/ApperIcon";
+import ChatMessage from "@/components/molecules/ChatMessage";
+import Card from "@/components/atoms/Card";
+import Button from "@/components/atoms/Button";
+import Badge from "@/components/atoms/Badge";
+import Input from "@/components/atoms/Input";
 
 const ChatWidget = () => {
   const [isOpen, setIsOpen] = useState(false);
@@ -81,31 +81,28 @@ const ChatWidget = () => {
     }
   }, [isOpen]);
 
-  const handleSendMessage = async () => {
+const handleSendMessage = async () => {
     if (!newMessage.trim()) return;
 
     const messageText = newMessage.trim();
     setNewMessage("");
 
+    const userMessage = {
+      id: Date.now(),
+      text: messageText,
+      sender: "user",
+      timestamp: new Date().toISOString(),
+      status: "sending"
+    };
+
     try {
-      // Add user message immediately
-      const userMessage = {
-        id: Date.now(),
-        text: messageText,
-        sender: "user",
-        timestamp: new Date().toISOString(),
-        status: "sending"
-      };
-      
+      // Add user message with sending status
       setMessages(prev => [...prev, userMessage]);
       
-      // Show typing indicator
-      setIsTyping(true);
+      // Send message to chat service
+      const response = await chatService.sendMessage(messageText, currentOrder?.id);
       
-      // Send message through service
-      const response = await chatService.sendMessage(messageText, currentOrder);
-      
-      // Update user message status
+      // Update user message to sent status
       setMessages(prev => 
         prev.map(msg => 
           msg.id === userMessage.id 
@@ -114,15 +111,28 @@ const ChatWidget = () => {
         )
       );
       
-      // Add agent response after delay
-      setTimeout(() => {
-        setIsTyping(false);
-        setMessages(prev => [...prev, response]);
-      }, 1000 + Math.random() * 2000); // 1-3 second delay
+      // Add agent response if available
+      if (response.agentResponse) {
+        const agentMessage = {
+          id: Date.now() + 1,
+          text: response.agentResponse,
+          sender: "agent",
+          timestamp: new Date().toISOString(),
+          agent: supportAgent
+        };
+        setMessages(prev => [...prev, agentMessage]);
+      }
+      
+      // Show typing indicator for delayed responses
+      if (response.willRespond) {
+        setIsTyping(true);
+        setTimeout(() => {
+          setIsTyping(false);
+        }, 2000);
+      }
       
     } catch (error) {
       console.error('Failed to send message:', error);
-      toast.error("Failed to send message");
       
       // Update message status to failed
       setMessages(prev => 
@@ -132,6 +142,8 @@ const ChatWidget = () => {
             : msg
         )
       );
+      
+      toast.error("Failed to send message. Please try again.");
     }
   };
 
