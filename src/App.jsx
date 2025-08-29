@@ -10,8 +10,8 @@ import OrdersPage from "@/components/pages/OrdersPage";
 import TrackingPage from "@/components/pages/TrackingPage";
 import AccountPage from "@/components/pages/AccountPage";
 import SubscriptionPage from "@/components/pages/SubscriptionPage";
+import RecommendationsPage from "@/components/pages/RecommendationsPage";
 import { addressService } from "@/services/api/addressService";
-
 const App = () => {
   const [currentAddress, setCurrentAddress] = useState("");
   const [savedAddresses, setSavedAddresses] = useState([]);
@@ -72,9 +72,13 @@ const App = () => {
         
         <main className="container mx-auto px-4 py-6 pb-24">
           <Routes>
-            <Route 
+<Route 
               path="/" 
               element={<HomePage onSearch={handleSearch} />} 
+            />
+            <Route 
+              path="/recommendations" 
+              element={<RecommendationsPage />} 
             />
             <Route 
               path="/search" 
