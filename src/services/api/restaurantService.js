@@ -17,6 +17,15 @@ export const restaurantService = {
     return { ...restaurant };
   },
 
+  async getSubscriptionMeals() {
+    await delay(300);
+    // Return restaurants that offer subscription meals
+    const subscriptionRestaurants = restaurantsData.filter(r => 
+      r.subscriptionAvailable !== false
+    );
+    return [...subscriptionRestaurants];
+  },
+
   async create(restaurant) {
     await delay(500);
     const newId = Math.max(...restaurantsData.map(r => r.Id)) + 1;

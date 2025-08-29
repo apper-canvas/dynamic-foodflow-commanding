@@ -9,6 +9,7 @@ import RestaurantPage from "@/components/pages/RestaurantPage";
 import OrdersPage from "@/components/pages/OrdersPage";
 import TrackingPage from "@/components/pages/TrackingPage";
 import AccountPage from "@/components/pages/AccountPage";
+import SubscriptionPage from "@/components/pages/SubscriptionPage";
 import { addressService } from "@/services/api/addressService";
 
 const App = () => {
@@ -92,8 +93,12 @@ const App = () => {
               element={<TrackingPage />} 
             />
             <Route 
-              path="/account" 
+path="/account" 
               element={<AccountPage />} 
+            />
+            <Route 
+              path="/subscriptions" 
+              element={<SubscriptionPage />} 
             />
           </Routes>
         </main>

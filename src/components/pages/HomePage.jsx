@@ -86,7 +86,7 @@ const HomePage = ({ onSearch }) => {
   return (
     <div className="space-y-8">
       {/* Hero Section */}
-      <motion.section
+<motion.section
         initial={{ opacity: 0, y: 20 }}
         animate={{ opacity: 1, y: 0 }}
         className="bg-gradient-to-r from-primary-500 via-primary-600 to-accent-500 rounded-2xl p-8 text-white relative overflow-hidden"
@@ -98,15 +98,26 @@ const HomePage = ({ onSearch }) => {
           <p className="text-primary-100 mb-6 max-w-md text-lg">
             Order from your favorite restaurants and get fresh, hot meals delivered to your doorstep.
           </p>
-          <Button
-            variant="secondary"
-            size="lg"
-            onClick={() => navigate("/search")}
-            leftIcon="Search"
-            className="bg-white text-primary-600 hover:bg-gray-50"
-          >
-            Explore Restaurants
-          </Button>
+          <div className="flex flex-col sm:flex-row gap-3">
+            <Button
+              variant="secondary"
+              size="lg"
+              onClick={() => navigate("/search")}
+              leftIcon="Search"
+              className="bg-white text-primary-600 hover:bg-gray-50"
+            >
+              Explore Restaurants
+            </Button>
+            <Button
+              variant="outline"
+              size="lg"
+              onClick={() => navigate("/subscriptions")}
+              leftIcon="Calendar"
+              className="border-white text-white hover:bg-white/10"
+            >
+              Meal Subscriptions
+            </Button>
+          </div>
         </div>
         <div className="absolute top-4 right-4 opacity-20">
           <ApperIcon name="UtensilsCrossed" size={120} />

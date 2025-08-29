@@ -133,6 +133,16 @@ const Header = ({
                   >
                     <ApperIcon name="Package" size={16} />
                     Your Orders
+</button>
+                  <button
+                    onClick={() => {
+                      navigate("/subscriptions");
+                      setIsProfileOpen(false);
+                    }}
+                    className="w-full px-4 py-2 text-left hover:bg-gray-50 flex items-center gap-3"
+                  >
+                    <ApperIcon name="Calendar" size={16} />
+                    Subscriptions
                   </button>
                   <button
                     onClick={() => {

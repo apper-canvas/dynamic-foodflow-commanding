@@ -7,7 +7,7 @@ const BottomNavigation = ({ cartItemCount = 0 }) => {
   const navigate = useNavigate();
   const location = useLocation();
   
-  const navItems = [
+const navItems = [
     {
       id: "home",
       label: "Home",
@@ -20,6 +20,13 @@ const BottomNavigation = ({ cartItemCount = 0 }) => {
       label: "Search",
       icon: "Search",
       path: "/search",
+      badge: null
+    },
+    {
+      id: "subscriptions",
+      label: "Subscriptions",
+      icon: "Calendar",
+      path: "/subscriptions",
       badge: null
     },
     {
