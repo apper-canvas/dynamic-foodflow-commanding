@@ -55,6 +55,7 @@ const badges = [];
 
 const showRecommendationBadge = dish.affinityScore && dish.affinityScore > 80;
   const isRecommended = dish.reason || dish.affinityScore;
+  const hasOffer = dish.discount && dish.discount > 0;
 
   return (
     <motion.div
@@ -62,16 +63,23 @@ const showRecommendationBadge = dish.affinityScore && dish.affinityScore > 80;
       animate={{ opacity: 1, y: 0 }}
       className={className}
     >
-      <Card className={`p-0 overflow-hidden dish-card-hover relative ${
+<Card className={`p-0 overflow-hidden dish-card-hover relative ${
         isRecommended ? 'ring-2 ring-blue-200 ring-opacity-50' : ''
-      }`}>
-        {showRecommendationBadge && (
-          <div className="absolute top-2 left-2 z-10">
+      } ${hasOffer ? 'ring-2 ring-primary-200 ring-opacity-70' : ''}`}>
+        <div className="absolute top-2 left-2 z-10 flex gap-1">
+          {hasOffer && (
+            <Badge variant="primary" size="xs" className="bg-gradient-to-r from-primary-500 to-primary-600 text-white font-bold">
+              <ApperIcon name="Percent" size={10} />
+              {dish.discount}% OFF
+            </Badge>
+          )}
+          {showRecommendationBadge && !hasOffer && (
             <Badge variant="info" size="xs" className="bg-blue-500 text-white">
               <ApperIcon name="Brain" size={10} />
               {dish.affinityScore}% match
             </Badge>
-          </div>
+          )}
+        </div>
         )}
         <div className="flex gap-4 p-4">
           {/* Dish Info */}
@@ -106,7 +114,16 @@ const showRecommendationBadge = dish.affinityScore && dish.affinityScore > 80;
                 
                 <div className="flex items-center gap-3 mb-2">
                   <span className="text-lg font-bold text-secondary-700">
-                    ₹{dish.price}
+<div className="flex items-center gap-2">
+                      {hasOffer ? (
+                        <>
+                          <span className="text-gray-400 line-through text-sm">₹{dish.price}</span>
+                          <span className="text-primary-600 font-bold">₹{Math.round(dish.price * (1 - dish.discount/100))}</span>
+                        </>
+                      ) : (
+                        <span>₹{dish.price}</span>
+                      )}
+                    </div>
                   </span>
                   {dish.originalPrice && dish.originalPrice > dish.price && (
                     <span className="text-sm text-gray-500 line-through">

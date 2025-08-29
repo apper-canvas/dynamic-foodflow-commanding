@@ -61,11 +61,15 @@ const RecommendationsPage = () => {
 
   const dishFilters = [
 { id: "forYou", label: "For You", icon: "Heart" },
+    { id: "specialOffers", label: "Special Offers", icon: "Percent" },
+    { id: "flashSales", label: "Flash Sales", icon: "Zap" },
+    { id: "limitedTime", label: "Limited Time", icon: "Clock" },
+    { id: "comboDeal", label: "Combo Deals", icon: "Package" },
     { id: "trending", label: "Popular", icon: "Flame" },
-    { id: "contextual", label: "Perfect for Now", icon: "Clock" },
+    { id: "contextual", label: "Perfect for Now", icon: "Sun" },
     { id: "dietary", label: "Your Diet", icon: "Leaf" },
-    { id: "quickBites", label: "Quick Bites", icon: "Zap" },
-    { id: "comfortFood", label: "Comfort Food", icon: "Coffee" },
+    { id: "quickBites", label: "Quick Bites", icon: "Coffee" },
+    { id: "comfortFood", label: "Comfort Food", icon: "Home" },
     { id: "healthyChoices", label: "Healthy Choices", icon: "Salad" },
     { id: "budgetFriendly", label: "Budget Friendly", icon: "DollarSign" }
   ];

@@ -19,9 +19,10 @@ const HomePage = ({ onSearch }) => {
     { id: "fast_delivery", label: "Fast Delivery", icon: "Zap", count: 12 },
     { id: "free_delivery", label: "Free Delivery", icon: "Truck", count: 8 },
     { id: "vegetarian", label: "Pure Veg", icon: "Leaf", count: 15 },
-    { id: "offers", label: "Great Offers", icon: "Percent", count: 6 },
+{ id: "offers", label: "Special Offers", icon: "Percent", count: 8 },
     { id: "top_rated", label: "Top Rated", icon: "Star", count: 10 },
-    { id: "new", label: "New Arrivals", icon: "Sparkles", count: 4 }
+    { id: "new", label: "New Arrivals", icon: "Sparkles", count: 4 },
+    { id: "flash_deals", label: "Flash Deals", icon: "Zap", count: 4 }
   ];
 
   const quickCategories = [
@@ -35,7 +36,7 @@ const HomePage = ({ onSearch }) => {
 
 const [recommendations, setRecommendations] = useState(null);
   const [loadingRecommendations, setLoadingRecommendations] = useState(false);
-
+  const [specialOffers, setSpecialOffers] = useState([]);
   const loadRestaurants = async () => {
     setLoading(true);
     setError("");
@@ -50,12 +51,14 @@ const [recommendations, setRecommendations] = useState(null);
     }
   };
 
-  const loadRecommendations = async () => {
+const loadRecommendations = async () => {
     setLoadingRecommendations(true);
     try {
       const { recommendationService } = await import("@/services/api/recommendationService");
       const data = await recommendationService.getPersonalizedRecommendations();
       setRecommendations(data);
+      // Extract special offers from recommendations
+      setSpecialOffers(data.restaurants.specialOffers || []);
     } catch (err) {
       console.error("Failed to load recommendations:", err);
     } finally {
@@ -65,7 +68,7 @@ const [recommendations, setRecommendations] = useState(null);
 
   useEffect(() => {
     loadRestaurants();
-    loadRecommendations();
+loadRecommendations();
   }, []);
   const handleRestaurantClick = (restaurant) => {
     navigate(`/restaurant/${restaurant.Id}`);
@@ -86,9 +89,11 @@ const [recommendations, setRecommendations] = useState(null);
         case "free_delivery":
           return restaurant.deliveryFee === 0;
         case "vegetarian":
-          return restaurant.isVegetarian;
+return restaurant.isVegetarian;
         case "offers":
           return restaurant.discount > 0;
+        case "flash_deals":
+          return restaurant.discount >= 25;
         case "top_rated":
           return restaurant.rating >= 4.5;
         case "new":
@@ -139,6 +144,32 @@ return (
           <ApperIcon name="UtensilsCrossed" size={120} />
         </div>
       </motion.section>
+
+{/* Special Offers Section */}
+      {specialOffers.length > 0 && (
+        <motion.div
+          initial={{ opacity: 0, y: 20 }}
+          animate={{ opacity: 1, y: 0 }}
+          className="mb-8"
+        >
+          <div className="flex items-center justify-between mb-4">
+            <div className="flex items-center gap-2">
+              <ApperIcon name="Percent" size={20} className="text-primary-500" />
+              <h2 className="text-lg font-display font-semibold text-secondary-700">
+                Special Offers Just for You
+              </h2>
+            </div>
+            <Badge variant="accent" size="sm" className="bg-gradient-to-r from-primary-500 to-accent-500">
+              Limited Time
+            </Badge>
+          </div>
+          <RestaurantGrid
+            restaurants={specialOffers}
+            onRestaurantClick={handleRestaurantClick}
+            className="grid-cols-2 gap-3"
+          />
+        </motion.div>
+      )}
 
       {/* AI Recommendations Section */}
       {recommendations && !loadingRecommendations && (

@@ -20,7 +20,10 @@ veg: "bg-green-100 text-green-800 border border-green-200",
     nonveg: "bg-red-100 text-red-800 border border-red-200",
     jain: "bg-orange-100 text-orange-800 border border-orange-200",
     "allergen-free": "bg-blue-100 text-blue-800 border border-blue-200",
-    danger: "bg-red-100 text-red-800 border border-red-200"
+    danger: "bg-red-100 text-red-800 border border-red-200",
+    offer: "bg-gradient-to-r from-primary-500 to-primary-600 text-white border-0 shadow-sm",
+    "flash-sale": "bg-gradient-to-r from-accent-500 to-accent-600 text-white border-0 shadow-md animate-pulse",
+    "limited-time": "bg-gradient-to-r from-warning to-primary-500 text-white border-0 shadow-sm"
   };
 
   const sizes = {

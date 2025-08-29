@@ -62,10 +62,12 @@ class RecommendationEngine {
     if (restaurant.deliveryFee === 0) score += 10;
     if (restaurant.deliveryTime <= 25) score += 10;
     
-    // Promotional boost
-    if (restaurant.isPromoted) score += 5;
-    if (restaurant.discount > 0) score += restaurant.discount * 0.5;
-    
+// Promotional boost - enhanced for special offers
+    if (restaurant.isPromoted) score += 8;
+    if (restaurant.discount > 0) {
+      score += restaurant.discount * 0.8; // Higher boost for discounts
+      if (restaurant.discount >= 20) score += 5; // Extra boost for significant discounts
+    }
     return Math.min(score, 100); // Cap at 100
   }
 
@@ -103,7 +105,15 @@ class RecommendationEngine {
     
     // Price preference (favor items around user's avg order value)
     const priceScore = this.getPriceAffinityScore(dish.price, userPrefs.avgOrderValue);
-    score += priceScore;
+score += priceScore;
+    
+    // Special offers boost
+    if (dish.discount && dish.discount > 0) {
+      score += dish.discount * 0.7;
+      if (dish.discount >= 15) score += 4; // Extra boost for good deals
+    }
+    if (dish.isLimitedTime) score += 6;
+    if (dish.isComboOffer) score += 5;
     
     return Math.max(0, Math.min(score, 100));
   }
@@ -171,14 +181,14 @@ class RecommendationEngine {
 }
 
 export const recommendationService = {
-  async getPersonalizedRecommendations() {
+async getPersonalizedRecommendations() {
     await delay(500);
     
     const timeOfDay = RecommendationEngine.getTimeOfDay();
     const weather = RecommendationEngine.getWeatherContext();
     const context = { timeOfDay, weather };
     
-    // Get restaurant recommendations
+    // Get restaurant recommendations with offer prioritization
     const restaurantScores = restaurantsData.map(restaurant => ({
       ...restaurant,
       affinityScore: RecommendationEngine.calculateRestaurantAffinity(restaurant, mockUserPreferences),
@@ -186,14 +196,13 @@ export const recommendationService = {
         RecommendationEngine.calculateRestaurantAffinity(restaurant, mockUserPreferences))
     })).sort((a, b) => b.affinityScore - a.affinityScore);
 
-    // Get dish recommendations
+    // Get dish recommendations with offer scoring
     const dishScores = menuItemsData.map(dish => ({
       ...dish,
       affinityScore: RecommendationEngine.calculateDishAffinity(dish, mockUserPreferences, timeOfDay, weather),
       reason: RecommendationEngine.getRecommendationReason(dish, context,
         RecommendationEngine.calculateDishAffinity(dish, mockUserPreferences, timeOfDay, weather))
     })).sort((a, b) => b.affinityScore - a.affinityScore);
-
 return {
       context: {
         timeOfDay,
@@ -204,7 +213,8 @@ return {
         topPicks: restaurantScores.slice(0, 6),
         trending: restaurantScores.filter(r => r.isPromoted).slice(0, 4),
         quickDelivery: restaurantScores.filter(r => r.deliveryTime <= 25).slice(0, 4),
-        vegetarian: restaurantScores.filter(r => r.isVegetarian).slice(0, 4)
+        vegetarian: restaurantScores.filter(r => r.isVegetarian).slice(0, 4),
+        specialOffers: restaurantScores.filter(r => r.discount > 0).slice(0, 6)
       },
       dishes: {
         forYou: dishScores.slice(0, 8),
@@ -224,7 +234,11 @@ return {
         healthyChoices: dishScores.filter(d => 
           d.dietary?.includes("veg") && d.calories < 400 && (!d.allergens || d.allergens.length === 0)
         ).slice(0, 6),
-        budgetFriendly: dishScores.filter(d => d.price <= 200).slice(0, 6)
+        budgetFriendly: dishScores.filter(d => d.price <= 200).slice(0, 6),
+        specialOffers: dishScores.filter(d => d.discount && d.discount > 0).slice(0, 8),
+        flashSales: dishScores.filter(d => d.discount >= 25).slice(0, 4),
+        limitedTime: dishScores.filter(d => d.isLimitedTime).slice(0, 4),
+        comboDeal: dishScores.filter(d => d.isComboOffer).slice(0, 4)
       }
     };
   },

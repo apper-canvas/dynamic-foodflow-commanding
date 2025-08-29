@@ -6,8 +6,8 @@ import { cn } from "@/utils/cn";
 
 const RestaurantCard = ({ restaurant, onClick, className }) => {
   const isPromoted = restaurant.isPromoted || false;
-  const hasDiscount = restaurant.discount && restaurant.discount > 0;
-
+const hasDiscount = restaurant.discount && restaurant.discount > 0;
+  const isSpecialOffer = hasDiscount && restaurant.discount >= 20;
   return (
     <motion.div
       whileHover={{ y: -4 }}
@@ -37,17 +37,24 @@ const RestaurantCard = ({ restaurant, onClick, className }) => {
             {/* Overlay gradient for better text readability */}
             <div className="absolute inset-0 bg-gradient-to-t from-black/20 to-transparent" />
             
-            {/* Badges */}
-            <div className="absolute top-2 left-2 flex gap-2">
-              {isPromoted && (
-                <Badge variant="accent" size="xs">
-                  <ApperIcon name="Star" size={10} />
-                  Promoted
+{/* Badges */}
+            <div className="absolute top-2 left-2 flex gap-2 flex-wrap">
+              {isSpecialOffer && (
+                <Badge variant="accent" size="xs" className="bg-gradient-to-r from-accent-500 to-accent-600 text-white font-bold animate-pulse">
+                  <ApperIcon name="Zap" size={10} />
+                  SPECIAL
                 </Badge>
               )}
               {hasDiscount && (
-                <Badge variant="primary" size="xs">
+                <Badge variant="primary" size="xs" className={isSpecialOffer ? "bg-primary-600" : "bg-primary-500"}>
+                  <ApperIcon name="Percent" size={10} />
                   {restaurant.discount}% OFF
+                </Badge>
+              )}
+              {isPromoted && !isSpecialOffer && (
+                <Badge variant="accent" size="xs">
+                  <ApperIcon name="Star" size={10} />
+                  Promoted
                 </Badge>
               )}
             </div>
