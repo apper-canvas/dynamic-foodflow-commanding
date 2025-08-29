@@ -1,0 +1,32 @@
+[
+  {
+    "Id": 1,
+    "label": "Home",
+    "street": "123 Residential Colony, Block A, House No. 456",
+    "landmark": "Near Central Park and Metro Station",
+    "coordinates": {
+      "lat": 28.6139,
+      "lng": 77.2090
+    }
+  },
+  {
+    "Id": 2,
+    "label": "Work",
+    "street": "789 Business District, Tower B, Floor 12",
+    "landmark": "Opposite City Mall, Near Coffee Shop",
+    "coordinates": {
+      "lat": 28.6289,
+      "lng": 77.2065
+    }
+  },
+  {
+    "Id": 3,
+    "label": "Mom's Place",
+    "street": "321 Old Town Street, Apartment 3C",
+    "landmark": "Behind Government Hospital",
+    "coordinates": {
+      "lat": 28.6219,
+      "lng": 77.2020
+    }
+  }
+]

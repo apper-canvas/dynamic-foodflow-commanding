@@ -1,0 +1,86 @@
+[
+  {
+    "Id": 1,
+    "userId": "user1",
+    "restaurantId": 1,
+    "restaurantName": "Pizza Palace",
+    "items": [
+      {"Id": 1, "name": "Margherita Pizza", "quantity": 1, "price": 299},
+      {"Id": 3, "name": "Garlic Bread", "quantity": 2, "price": 149}
+    ],
+    "subtotal": 597,
+    "deliveryFee": 0,
+    "discount": 0,
+    "total": 597,
+    "status": "preparing",
+    "orderDate": "2024-01-15",
+    "deliveryTime": 25,
+    "deliveryAddress": {
+      "Id": 1,
+      "label": "Home",
+      "street": "123 Residential Colony, Block A"
+    },
+    "paymentMethod": "card",
+    "scheduledTime": null,
+    "trackingData": {
+      "currentLocation": { "lat": 28.6139, "lng": 77.2090 },
+      "estimatedArrival": "7:30 PM"
+    }
+  },
+  {
+    "Id": 2,
+    "userId": "user1",
+    "restaurantId": 2,
+    "restaurantName": "Burger Junction",
+    "items": [
+      {"Id": 4, "name": "Classic Burger", "quantity": 2, "price": 249},
+      {"Id": 6, "name": "French Fries", "quantity": 1, "price": 99}
+    ],
+    "subtotal": 597,
+    "deliveryFee": 25,
+    "discount": 0,
+    "total": 622,
+    "status": "delivered",
+    "orderDate": "2024-01-14",
+    "deliveryTime": 20,
+    "deliveryAddress": {
+      "Id": 2,
+      "label": "Work",
+      "street": "789 Business District, Tower B"
+    },
+    "paymentMethod": "upi",
+    "scheduledTime": null,
+    "trackingData": {
+      "currentLocation": null,
+      "estimatedArrival": null
+    }
+  },
+  {
+    "Id": 3,
+    "userId": "user1",
+    "restaurantId": 3,
+    "restaurantName": "Spice Garden",
+    "items": [
+      {"Id": 7, "name": "Paneer Butter Masala", "quantity": 1, "price": 349},
+      {"Id": 8, "name": "Garlic Naan", "quantity": 3, "price": 89}
+    ],
+    "subtotal": 616,
+    "deliveryFee": 30,
+    "discount": 92,
+    "total": 554,
+    "status": "on_way",
+    "orderDate": "2024-01-15",
+    "deliveryTime": 35,
+    "deliveryAddress": {
+      "Id": 1,
+      "label": "Home",
+      "street": "123 Residential Colony, Block A"
+    },
+    "paymentMethod": "cash",
+    "scheduledTime": null,
+    "trackingData": {
+      "currentLocation": { "lat": 28.6180, "lng": 77.2070 },
+      "estimatedArrival": "8:15 PM"
+    }
+  }
+]
