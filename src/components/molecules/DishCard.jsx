@@ -79,14 +79,14 @@ const showRecommendationBadge = dish.affinityScore && dish.affinityScore > 80;
               {dish.affinityScore}% match
             </Badge>
           )}
-        </div>
-        )}
+</div>
+        
         <div className="flex gap-4 p-4">
           {/* Dish Info */}
           <div className="flex-1">
             <div className="flex items-start gap-2 mb-2">
               <div className="flex-1">
-<div className="flex flex-wrap items-center gap-2 mb-2">
+                <div className="flex flex-wrap items-center gap-2 mb-2">
                   {getDietaryBadge()}
                   {hasBestSeller && (
                     <Badge variant="accent" size="xs">
@@ -114,7 +114,7 @@ const showRecommendationBadge = dish.affinityScore && dish.affinityScore > 80;
                 
                 <div className="flex items-center gap-3 mb-2">
                   <span className="text-lg font-bold text-secondary-700">
-<div className="flex items-center gap-2">
+                    <div className="flex items-center gap-2">
                       {hasOffer ? (
                         <>
                           <span className="text-gray-400 line-through text-sm">₹{dish.price}</span>
@@ -140,7 +140,8 @@ const showRecommendationBadge = dish.affinityScore && dish.affinityScore > 80;
                 </div>
               </div>
             </div>
-<p className="text-sm text-gray-600 leading-relaxed mb-3">
+            
+            <p className="text-sm text-gray-600 leading-relaxed mb-3">
               {dish.description}
             </p>
             
@@ -152,7 +153,8 @@ const showRecommendationBadge = dish.affinityScore && dish.affinityScore > 80;
                 </p>
               </div>
             )}
-<div className="flex flex-wrap gap-2 mb-3">
+            
+            <div className="flex flex-wrap gap-2 mb-3">
               {dish.addOns && dish.addOns.length > 0 && (
                 <button
                   onClick={() => setShowCustomization(!showCustomization)}
@@ -223,7 +225,7 @@ const showRecommendationBadge = dish.affinityScore && dish.affinityScore > 80;
         </div>
         
         {/* Customization Options */}
-{showCustomization && dish.addOns && dish.addOns.length > 0 && (
+        {showCustomization && dish.addOns && dish.addOns.length > 0 && (
           <motion.div
             initial={{ height: 0, opacity: 0 }}
             animate={{ height: "auto", opacity: 1 }}
@@ -308,7 +310,7 @@ const showRecommendationBadge = dish.affinityScore && dish.affinityScore > 80;
             )}
           </motion.div>
         )}
-</Card>
+      </Card>
       
       {isRecommended && (
         <motion.div
