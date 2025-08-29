@@ -74,9 +74,21 @@ const MenuDisplay = ({
     });
   });
 
-  const filteredItems = activeCategory === "all" 
+const filteredItems = activeCategory === "all" 
     ? dietaryFilteredMenu 
     : dietaryFilteredMenu.filter(item => item.category === activeCategory);
+
+  // Sort to prioritize recommended items
+  const sortedItems = [...filteredItems].sort((a, b) => {
+    const aRecommended = (a.affinityScore && a.affinityScore > 70) || a.reason;
+    const bRecommended = (b.affinityScore && b.affinityScore > 70) || b.reason;
+    
+    if (aRecommended && !bRecommended) return -1;
+    if (!aRecommended && bRecommended) return 1;
+    if (a.affinityScore && b.affinityScore) return b.affinityScore - a.affinityScore;
+    return 0;
+  });
+
   return (
 <div className={className}>
       {/* Dietary Filters */}
@@ -134,8 +146,8 @@ const MenuDisplay = ({
           actionText="Show All Items"
         />
       ) : (
-        <div className="space-y-4">
-          {filteredItems.map((dish, index) => (
+<div className="space-y-4">
+          {sortedItems.map((dish, index) => (
             <motion.div
               key={dish.Id}
               initial={{ opacity: 0, x: -20 }}

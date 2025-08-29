@@ -60,10 +60,14 @@ const RecommendationsPage = () => {
   ];
 
   const dishFilters = [
-    { id: "forYou", label: "For You", icon: "Heart" },
+{ id: "forYou", label: "For You", icon: "Heart" },
     { id: "trending", label: "Popular", icon: "Flame" },
     { id: "contextual", label: "Perfect for Now", icon: "Clock" },
-    { id: "dietary", label: "Your Diet", icon: "Leaf" }
+    { id: "dietary", label: "Your Diet", icon: "Leaf" },
+    { id: "quickBites", label: "Quick Bites", icon: "Zap" },
+    { id: "comfortFood", label: "Comfort Food", icon: "Coffee" },
+    { id: "healthyChoices", label: "Healthy Choices", icon: "Salad" },
+    { id: "budgetFriendly", label: "Budget Friendly", icon: "DollarSign" }
   ];
 
   if (loading) {
@@ -218,7 +222,7 @@ const RecommendationsPage = () => {
             ))}
           </div>
         ) : (
-          <div className="space-y-4">
+<div className="grid grid-cols-1 md:grid-cols-2 gap-4">
             {currentDishes.map((dish, index) => (
               <motion.div
                 key={dish.Id}

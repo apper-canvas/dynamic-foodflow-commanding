@@ -53,13 +53,26 @@ const badges = [];
   const isPopular = dish.isPopular || false;
   const hasBestSeller = dish.isBestSeller || false;
 
+const showRecommendationBadge = dish.affinityScore && dish.affinityScore > 80;
+  const isRecommended = dish.reason || dish.affinityScore;
+
   return (
     <motion.div
       initial={{ opacity: 0, y: 20 }}
       animate={{ opacity: 1, y: 0 }}
       className={className}
     >
-      <Card className="p-0 overflow-hidden dish-card-hover">
+      <Card className={`p-0 overflow-hidden dish-card-hover relative ${
+        isRecommended ? 'ring-2 ring-blue-200 ring-opacity-50' : ''
+      }`}>
+        {showRecommendationBadge && (
+          <div className="absolute top-2 left-2 z-10">
+            <Badge variant="info" size="xs" className="bg-blue-500 text-white">
+              <ApperIcon name="Brain" size={10} />
+              {dish.affinityScore}% match
+            </Badge>
+          </div>
+        )}
         <div className="flex gap-4 p-4">
           {/* Dish Info */}
           <div className="flex-1">
@@ -110,11 +123,18 @@ const badges = [];
                 </div>
               </div>
             </div>
-            
-            <p className="text-sm text-gray-600 leading-relaxed mb-3">
+<p className="text-sm text-gray-600 leading-relaxed mb-3">
               {dish.description}
             </p>
             
+            {dish.reason && (
+              <div className="mb-3 p-2 bg-blue-50 rounded-lg border border-blue-200">
+                <p className="text-xs text-blue-700 flex items-center gap-1">
+                  <ApperIcon name="Brain" size={12} />
+                  {dish.reason}
+                </p>
+              </div>
+            )}
 <div className="flex flex-wrap gap-2 mb-3">
               {dish.addOns && dish.addOns.length > 0 && (
                 <button
@@ -271,7 +291,17 @@ const badges = [];
             )}
           </motion.div>
         )}
-      </Card>
+</Card>
+      
+      {isRecommended && (
+        <motion.div
+          initial={{ opacity: 0, scale: 0.8 }}
+          animate={{ opacity: 1, scale: 1 }}
+          className="absolute -top-2 -right-2 bg-gradient-to-r from-blue-500 to-purple-500 text-white rounded-full p-1 shadow-lg"
+        >
+          <ApperIcon name="Sparkles" size={12} />
+        </motion.div>
+      )}
     </motion.div>
   );
 };

@@ -194,7 +194,7 @@ export const recommendationService = {
         RecommendationEngine.calculateDishAffinity(dish, mockUserPreferences, timeOfDay, weather))
     })).sort((a, b) => b.affinityScore - a.affinityScore);
 
-    return {
+return {
       context: {
         timeOfDay,
         weather,
@@ -214,7 +214,17 @@ export const recommendationService = {
         ).slice(0, 6),
         dietary: dishScores.filter(d => 
           d.dietary?.some(diet => mockUserPreferences.dietaryPreferences.includes(diet))
-        ).slice(0, 6)
+        ).slice(0, 6),
+        quickBites: dishScores.filter(d => 
+          d.category === "Snacks" || d.category === "Appetizers" || d.prepTime <= 15
+        ).slice(0, 6),
+        comfortFood: dishScores.filter(d => 
+          weather === "cold" && (d.category === "Main Course" || d.spiceLevel >= 2)
+        ).slice(0, 6),
+        healthyChoices: dishScores.filter(d => 
+          d.dietary?.includes("veg") && d.calories < 400 && (!d.allergens || d.allergens.length === 0)
+        ).slice(0, 6),
+        budgetFriendly: dishScores.filter(d => d.price <= 200).slice(0, 6)
       }
     };
   },

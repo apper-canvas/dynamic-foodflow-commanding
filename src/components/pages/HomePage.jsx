@@ -163,8 +163,7 @@ return (
               View All
             </Button>
           </div>
-          
-          <div className="bg-gradient-to-r from-blue-50 to-purple-50 rounded-2xl p-6 mb-6">
+<div className="bg-gradient-to-r from-blue-50 to-purple-50 rounded-2xl p-6 mb-6">
             <div className="flex items-center gap-2 mb-4">
               <ApperIcon name="Sparkles" size={18} className="text-blue-600" />
               <span className="text-sm font-medium text-blue-700">
@@ -172,52 +171,110 @@ return (
               </span>
             </div>
             
-            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
-              {recommendations.restaurants.topPicks.slice(0, 3).map((restaurant, index) => (
-                <motion.div
-                  key={restaurant.Id}
-                  initial={{ opacity: 0, scale: 0.9 }}
-                  animate={{ opacity: 1, scale: 1 }}
-                  transition={{ delay: 0.1 * index }}
-                  className="bg-white rounded-xl p-4 shadow-sm hover:shadow-md transition-shadow cursor-pointer"
-                  onClick={() => handleRestaurantClick(restaurant)}
-                >
-                  <div className="flex items-center gap-3 mb-3">
-                    <div className="w-12 h-12 bg-gradient-to-br from-gray-200 to-gray-300 rounded-lg flex items-center justify-center">
-                      <ApperIcon name="Store" size={20} className="text-gray-400" />
+            {/* Featured Dishes Section */}
+            {recommendations.dishes?.forYou && recommendations.dishes.forYou.length > 0 && (
+              <div className="mb-6">
+                <h3 className="text-lg font-semibold text-secondary-700 mb-4 flex items-center gap-2">
+                  <ApperIcon name="UtensilsCrossed" size={20} />
+                  Recommended Dishes for You
+                </h3>
+                <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+                  {recommendations.dishes.forYou.slice(0, 2).map((dish, index) => (
+                    <motion.div
+                      key={dish.Id}
+                      initial={{ opacity: 0, scale: 0.9 }}
+                      animate={{ opacity: 1, scale: 1 }}
+                      transition={{ delay: 0.1 * index }}
+                      className="bg-white rounded-xl p-4 shadow-sm hover:shadow-md transition-shadow"
+                    >
+                      <div className="flex gap-3">
+                        <div className="w-16 h-16 bg-gradient-to-br from-gray-200 to-gray-300 rounded-lg flex items-center justify-center flex-shrink-0">
+                          <ApperIcon name="UtensilsCrossed" size={20} className="text-gray-400" />
+                        </div>
+                        <div className="flex-1 min-w-0">
+                          <div className="flex items-start justify-between mb-2">
+                            <h4 className="font-semibold text-secondary-700 truncate">{dish.name}</h4>
+                            <Badge variant="info" size="xs" className="flex-shrink-0 ml-2">
+                              {dish.affinityScore}% match
+                            </Badge>
+                          </div>
+                          <p className="text-sm text-gray-600 mb-2 line-clamp-2">{dish.description}</p>
+                          <div className="flex items-center justify-between">
+                            <span className="font-bold text-primary-600">₹{dish.price}</span>
+                            <div className="flex items-center gap-1 text-xs text-gray-500">
+                              <ApperIcon name="Star" size={12} className="text-accent-500" />
+                              {dish.rating || "4.5"}
+                            </div>
+                          </div>
+                          {dish.reason && (
+                            <div className="mt-2 p-2 bg-blue-50 rounded-lg">
+                              <p className="text-xs text-blue-700 flex items-center gap-1">
+                                <ApperIcon name="Brain" size={12} />
+                                {dish.reason}
+                              </p>
+                            </div>
+                          )}
+                        </div>
+                      </div>
+                    </motion.div>
+                  ))}
+                </div>
+              </div>
+            )}
+            
+            {/* Top Restaurant Picks */}
+            <div>
+              <h3 className="text-lg font-semibold text-secondary-700 mb-4 flex items-center gap-2">
+                <ApperIcon name="Store" size={20} />
+                Top Restaurant Picks
+              </h3>
+              <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
+                {recommendations.restaurants.topPicks.slice(0, 3).map((restaurant, index) => (
+                  <motion.div
+                    key={restaurant.Id}
+                    initial={{ opacity: 0, scale: 0.9 }}
+                    animate={{ opacity: 1, scale: 1 }}
+                    transition={{ delay: 0.1 * index }}
+                    className="bg-white rounded-xl p-4 shadow-sm hover:shadow-md transition-shadow cursor-pointer"
+                    onClick={() => handleRestaurantClick(restaurant)}
+                  >
+                    <div className="flex items-center gap-3 mb-3">
+                      <div className="w-12 h-12 bg-gradient-to-br from-gray-200 to-gray-300 rounded-lg flex items-center justify-center">
+                        <ApperIcon name="Store" size={20} className="text-gray-400" />
+                      </div>
+                      <div className="flex-1">
+                        <h3 className="font-semibold text-secondary-700">{restaurant.name}</h3>
+                        <p className="text-sm text-gray-500">{restaurant.cuisine?.join(", ")}</p>
+                      </div>
+                      <Badge variant="info" size="xs">
+                        {restaurant.affinityScore}% match
+                      </Badge>
                     </div>
-                    <div className="flex-1">
-                      <h3 className="font-semibold text-secondary-700">{restaurant.name}</h3>
-                      <p className="text-sm text-gray-500">{restaurant.cuisine?.join(", ")}</p>
+                    
+                    <div className="flex items-center gap-4 text-sm text-gray-600">
+                      <div className="flex items-center gap-1">
+                        <ApperIcon name="Star" size={12} className="text-accent-500" />
+                        {restaurant.rating}
+                      </div>
+                      <div className="flex items-center gap-1">
+                        <ApperIcon name="Clock" size={12} />
+                        {restaurant.deliveryTime} min
+                      </div>
+                      <div className="flex items-center gap-1">
+                        <ApperIcon name="Truck" size={12} />
+                        {restaurant.deliveryFee === 0 ? "Free" : `₹${restaurant.deliveryFee}`}
+                      </div>
                     </div>
-                    <Badge variant="info" size="xs">
-                      {restaurant.affinityScore}% match
-                    </Badge>
-                  </div>
-                  
-                  <div className="flex items-center gap-4 text-sm text-gray-600">
-                    <div className="flex items-center gap-1">
-                      <ApperIcon name="Star" size={12} className="text-accent-500" />
-                      {restaurant.rating}
+                    
+                    <div className="mt-3 p-2 bg-blue-50 rounded-lg">
+                      <p className="text-xs text-blue-700 flex items-center gap-1">
+                        <ApperIcon name="Brain" size={12} />
+                        {restaurant.reason}
+                      </p>
                     </div>
-                    <div className="flex items-center gap-1">
-                      <ApperIcon name="Clock" size={12} />
-                      {restaurant.deliveryTime} min
-                    </div>
-                    <div className="flex items-center gap-1">
-                      <ApperIcon name="Truck" size={12} />
-                      {restaurant.deliveryFee === 0 ? "Free" : `₹${restaurant.deliveryFee}`}
-                    </div>
-                  </div>
-                  
-                  <div className="mt-3 p-2 bg-blue-50 rounded-lg">
-                    <p className="text-xs text-blue-700 flex items-center gap-1">
-                      <ApperIcon name="Brain" size={12} />
-                      {restaurant.reason}
-                    </p>
-                  </div>
-                </motion.div>
-              ))}
+                  </motion.div>
+                ))}
+              </div>
             </div>
           </div>
         </motion.section>
