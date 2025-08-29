@@ -152,15 +152,16 @@ const toggleFavorite = async () => {
   const totals = calculateCartTotals();
 
   return (
-    <div className="space-y-6">
+<div className="space-y-4 sm:space-y-6 pb-24 sm:pb-8">
       {/* Restaurant Header */}
       <motion.div
         initial={{ opacity: 0, y: 20 }}
         animate={{ opacity: 1, y: 0 }}
->
-        <Card className="p-0 overflow-hidden interactive-restaurant-card">
-          <div className="relative h-48 bg-gradient-to-br from-gray-200 to-gray-300">
-            {restaurant.image ? (
+        className="px-3 sm:px-0"
+      >
+<Card className="p-0 overflow-hidden interactive-restaurant-card">
+          <div className="relative h-40 sm:h-48 bg-gradient-to-br from-gray-200 to-gray-300">
+{restaurant.image ? (
               <img 
                 src={restaurant.image} 
                 alt={restaurant.name}
@@ -168,80 +169,79 @@ const toggleFavorite = async () => {
               />
             ) : (
               <div className="w-full h-full flex items-center justify-center">
-                <ApperIcon name="Store" size={64} className="text-gray-400" />
+                <ApperIcon name="Store" size={48} className="text-gray-400 sm:w-16 sm:h-16" />
               </div>
             )}
             <div className="absolute inset-0 bg-gradient-to-t from-black/40 to-transparent" />
-            
             {/* Back Button */}
-            <Button
+<Button
               variant="ghost"
               size="sm"
               onClick={() => navigate(-1)}
-              className="absolute top-4 left-4 bg-white/90 text-secondary-700 hover:bg-white"
+              className="absolute top-3 left-3 sm:top-4 sm:left-4 bg-white/90 text-secondary-700 hover:bg-white min-h-[44px] min-w-[44px]"
             >
-              <ApperIcon name="ArrowLeft" size={20} />
+              <ApperIcon name="ArrowLeft" size={18} className="sm:w-5 sm:h-5" />
             </Button>
 
             {/* Favorite Button */}
-            <Button
+<Button
               variant="ghost"
               size="sm"
               onClick={toggleFavorite}
-              className={`absolute top-4 right-4 ${
+              className={`absolute top-3 right-3 sm:top-4 sm:right-4 min-h-[44px] min-w-[44px] ${
                 isFavorite 
                   ? "bg-red-500 text-white hover:bg-red-600" 
                   : "bg-white/90 text-secondary-700 hover:bg-white"
               }`}
             >
-              <ApperIcon name="Heart" size={20} className={isFavorite ? "fill-current" : ""} />
+              <ApperIcon name="Heart" size={18} className={`${isFavorite ? "fill-current" : ""} sm:w-5 sm:h-5`} />
             </Button>
           </div>
 
-          <div className="p-6">
-            <div className="flex items-start justify-between mb-4">
-              <div>
-                <h1 className="text-2xl font-display font-bold text-secondary-700 mb-2">
+<div className="p-4 sm:p-6">
+<div className="flex flex-col sm:flex-row sm:items-start justify-between gap-2 sm:gap-0 mb-3 sm:mb-4">
+              <div className="flex-1">
+                <h1 className="text-xl sm:text-2xl font-display font-bold text-secondary-700 mb-1 sm:mb-2 line-clamp-2">
                   {restaurant.name}
                 </h1>
-                <p className="text-gray-600 mb-3">
+                <p className="text-sm sm:text-base text-gray-600 mb-2 sm:mb-3 line-clamp-2">
                   {Array.isArray(restaurant.cuisine) ? restaurant.cuisine.join(", ") : restaurant.cuisine}
                 </p>
               </div>
             </div>
 
-            <div className="flex items-center gap-6 text-sm">
+<div className="grid grid-cols-2 sm:flex sm:items-center gap-3 sm:gap-6 text-xs sm:text-sm">
               <div className="flex items-center gap-1">
-                <div className="bg-gradient-to-r from-accent-500 to-success p-1 rounded">
-                  <ApperIcon name="Star" size={14} className="text-white fill-current" />
+                <div className="bg-gradient-to-r from-accent-500 to-success p-0.5 sm:p-1 rounded">
+                  <ApperIcon name="Star" size={12} className="text-white fill-current sm:w-3.5 sm:h-3.5" />
                 </div>
                 <span className="font-medium">{restaurant.rating}</span>
               </div>
               
               <div className="flex items-center gap-1 text-gray-600">
-                <ApperIcon name="Clock" size={14} />
+                <ApperIcon name="Clock" size={12} className="sm:w-3.5 sm:h-3.5" />
                 <span>{restaurant.deliveryTime} min</span>
               </div>
               
-              <div className="flex items-center gap-1 text-gray-600">
-                <ApperIcon name="IndianRupee" size={14} />
+              <div className="flex items-center gap-1 text-gray-600 col-span-2 sm:col-span-1">
+                <ApperIcon name="IndianRupee" size={12} className="sm:w-3.5 sm:h-3.5" />
                 <span>{restaurant.deliveryFee === 0 ? "Free delivery" : `₹${restaurant.deliveryFee} delivery`}</span>
               </div>
 
               {restaurant.minOrder && (
-                <div className="flex items-center gap-1 text-gray-600">
-                  <ApperIcon name="ShoppingBag" size={14} />
+                <div className="flex items-center gap-1 text-gray-600 col-span-2 sm:col-span-1">
+                  <ApperIcon name="ShoppingBag" size={12} className="sm:w-3.5 sm:h-3.5" />
                   <span>Min ₹{restaurant.minOrder}</span>
                 </div>
               )}
             </div>
 
             {/* Offers */}
-            {restaurant.offers && restaurant.offers.length > 0 && (
-              <div className="mt-4 flex gap-2">
+{restaurant.offers && restaurant.offers.length > 0 && (
+              <div className="mt-3 sm:mt-4 flex flex-wrap gap-1.5 sm:gap-2">
                 {restaurant.offers.map((offer, index) => (
-                  <Badge key={index} variant="primary" size="sm">
-                    <ApperIcon name="Percent" size={12} />
+                  <Badge key={index} variant="primary" size="sm" className="text-xs">
+                    <ApperIcon name="Percent" size={10} className="sm:w-3 sm:h-3" />
                     {offer}
                   </Badge>
                 ))}

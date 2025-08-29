@@ -107,7 +107,7 @@ return restaurant.isVegetarian;
   });
 
 return (
-<div className="space-y-8">
+<div className="space-y-6 sm:space-y-8 pb-24 sm:pb-8">
       {/* Hero Section */}
       <motion.section
         initial={{ opacity: 0, y: 20 }}
@@ -151,11 +151,11 @@ return (
       </motion.section>
 
 {/* Interactive Special Offers Section */}
-      {specialOffers.length > 0 && (
+{specialOffers.length > 0 && (
         <motion.div
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
-          className="mb-8 interactive-section"
+          className="mb-6 sm:mb-8 interactive-section"
         >
           <motion.div 
             className="flex items-center justify-between mb-4"
@@ -186,7 +186,7 @@ return (
           <RestaurantGrid
             restaurants={specialOffers}
             onRestaurantClick={handleRestaurantClick}
-            className="grid-cols-2 gap-3"
+className="grid-cols-1 sm:grid-cols-2 gap-3 sm:gap-4"
           />
         </motion.div>
       )}
@@ -213,7 +213,7 @@ return (
               View All
             </Button>
           </div>
-<div className="bg-gradient-to-r from-blue-50 to-purple-50 rounded-2xl p-6 mb-6">
+<div className="bg-gradient-to-r from-blue-50 to-purple-50 rounded-xl sm:rounded-2xl p-4 sm:p-6 mb-4 sm:mb-6">
             <div className="flex items-center gap-2 mb-4">
               <ApperIcon name="Sparkles" size={18} className="text-blue-600" />
               <span className="text-sm font-medium text-blue-700">
@@ -228,7 +228,7 @@ return (
                   <ApperIcon name="UtensilsCrossed" size={20} />
                   Recommended Dishes for You
                 </h3>
-                <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+<div className="grid grid-cols-1 sm:grid-cols-2 gap-3 sm:gap-4">
                   {recommendations.dishes.forYou.slice(0, 2).map((dish, index) => (
                     <motion.div
                       key={dish.Id}
@@ -278,7 +278,7 @@ return (
                 <ApperIcon name="Store" size={20} />
                 Top Restaurant Picks
               </h3>
-              <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
+<div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-3 sm:gap-4">
                 {recommendations.restaurants.topPicks.slice(0, 3).map((restaurant, index) => (
                   <motion.div
                     key={restaurant.Id}
@@ -340,7 +340,7 @@ return (
           What are you craving?
         </motion.h2>
         
-        <div className="grid grid-cols-3 md:grid-cols-6 gap-4">
+<div className="grid grid-cols-3 sm:grid-cols-4 md:grid-cols-6 gap-3 sm:gap-4">
           {quickCategories.map((category, index) => (
             <motion.button
               key={category.name}
@@ -367,21 +367,21 @@ return (
       </section>
 
       {/* Filters */}
-      <section>
-        <div className="flex items-center justify-between mb-4">
-          <h2 className="text-2xl font-display font-bold text-secondary-700">
+<section>
+        <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-2 sm:gap-0 mb-4">
+          <h2 className="text-xl sm:text-2xl font-display font-bold text-secondary-700">
             Restaurants near you
           </h2>
-          <Badge variant="secondary" size="md">
+          <Badge variant="secondary" size="md" className="self-start sm:self-auto">
             {filteredRestaurants.length} restaurants
           </Badge>
         </div>
         
-        <FilterChips
+<FilterChips
           filters={filters}
           activeFilters={activeFilters}
           onFilterChange={setActiveFilters}
-          className="mb-6"
+          className="mb-4 sm:mb-6"
         />
       </section>
 

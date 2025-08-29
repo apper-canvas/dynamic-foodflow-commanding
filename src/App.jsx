@@ -62,7 +62,7 @@ const App = () => {
 
   return (
 <BrowserRouter>
-      <div className="min-h-screen bg-background">
+<div className="min-h-screen bg-background px-4 sm:px-6 lg:px-8">
         <Header 
           currentAddress={currentAddress}
           savedAddresses={savedAddresses}

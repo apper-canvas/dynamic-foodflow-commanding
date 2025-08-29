@@ -34,26 +34,26 @@ const Header = ({
       animate={{ y: 0, opacity: 1 }}
       className="sticky top-0 z-50 bg-white/95 backdrop-blur-lg border-b border-gray-100 shadow-sm"
     >
-      <div className="container mx-auto px-4 py-3">
+<div className="container mx-auto px-3 sm:px-4 py-2 sm:py-3">
         <div className="flex items-center gap-4">
-          {/* Logo */}
+{/* Logo */}
           <motion.div 
             whileHover={{ scale: 1.05 }}
-            className="flex items-center gap-2 cursor-pointer"
+            className="flex items-center gap-2 cursor-pointer flex-shrink-0"
             onClick={() => navigate("/")}
           >
-            <div className="bg-gradient-to-r from-primary-500 to-accent-500 p-2 rounded-xl">
-              <ApperIcon name="UtensilsCrossed" size={24} className="text-white" />
+            <div className="bg-gradient-to-r from-primary-500 to-accent-500 p-1.5 sm:p-2 rounded-lg sm:rounded-xl">
+              <ApperIcon name="UtensilsCrossed" size={20} className="text-white sm:w-6 sm:h-6" />
             </div>
             <div className="hidden sm:block">
-              <h1 className="text-xl font-display font-bold bg-gradient-to-r from-primary-600 to-accent-600 bg-clip-text text-transparent">
+              <h1 className="text-lg sm:text-xl font-display font-bold bg-gradient-to-r from-primary-600 to-accent-600 bg-clip-text text-transparent">
                 FoodFlow
               </h1>
             </div>
           </motion.div>
 
-          {/* Location Selector - Show on all pages */}
-          <div className="flex-1 max-w-xs">
+{/* Location Selector - Show on all pages */}
+          <div className="flex-1 max-w-xs sm:max-w-sm mx-2 sm:mx-0">
             <LocationSelector
               currentAddress={currentAddress}
               savedAddresses={savedAddresses}
@@ -63,8 +63,8 @@ const Header = ({
           </div>
 
           {/* Search Bar - Show on home and search pages */}
-          {(isHomePage || isSearchPage) && (
-            <div className="hidden md:block flex-1 max-w-md">
+{(isHomePage || isSearchPage) && (
+            <div className="hidden lg:block flex-1 max-w-md ml-4">
               <SearchBar
                 placeholder="Search restaurants, dishes..."
                 suggestions={searchSuggestions}
@@ -73,16 +73,16 @@ const Header = ({
             </div>
           )}
 
-          {/* Action Buttons */}
-          <div className="flex items-center gap-2">
+{/* Action Buttons */}
+          <div className="flex items-center gap-1 sm:gap-2 flex-shrink-0">
             {/* Search Button - Mobile */}
             <Button
               variant="ghost"
               size="sm"
               onClick={() => navigate("/search")}
-              className="md:hidden"
+              className="lg:hidden p-2"
             >
-              <ApperIcon name="Search" size={20} />
+              <ApperIcon name="Search" size={18} />
             </Button>
 
             {/* Cart Button */}
@@ -185,8 +185,8 @@ const Header = ({
         </div>
 
         {/* Mobile Search Bar */}
-        {(isHomePage || isSearchPage) && (
-          <div className="md:hidden mt-3">
+{(isHomePage || isSearchPage) && (
+          <div className="lg:hidden mt-3 px-3 sm:px-4">
             <SearchBar
               placeholder="Search restaurants, dishes..."
               suggestions={searchSuggestions}

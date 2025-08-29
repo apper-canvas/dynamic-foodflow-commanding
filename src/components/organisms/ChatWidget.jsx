@@ -202,25 +202,25 @@ const handleSendMessage = async () => {
 
       {/* Chat Window */}
       <AnimatePresence>
-        {isOpen && (
+{isOpen && (
           <motion.div
             initial={{ opacity: 0, y: 100, scale: 0.8 }}
             animate={{ opacity: 1, y: 0, scale: 1 }}
             exit={{ opacity: 0, y: 100, scale: 0.8 }}
             transition={{ type: "spring", duration: 0.5 }}
-            className="fixed bottom-6 right-6 w-80 h-96 z-50 sm:w-96 sm:h-[500px]"
+            className="fixed bottom-20 right-3 left-3 h-96 z-50 sm:bottom-6 sm:right-6 sm:left-auto sm:w-80 sm:h-96 lg:w-96 lg:h-[500px]"
           >
-            <Card className="h-full flex flex-col p-0 shadow-2xl border-0">
+<Card className="h-full flex flex-col p-0 shadow-2xl border-0">
               {/* Chat Header */}
-              <div className="flex items-center justify-between p-4 border-b border-gray-100 bg-gradient-to-r from-primary-500 to-primary-600 text-white rounded-t-xl">
-                <div className="flex items-center gap-3">
-                  <div className="w-8 h-8 bg-white/20 rounded-full flex items-center justify-center">
-                    <ApperIcon name="Headphones" size={16} />
+              <div className="flex items-center justify-between p-3 sm:p-4 border-b border-gray-100 bg-gradient-to-r from-primary-500 to-primary-600 text-white rounded-t-xl">
+                <div className="flex items-center gap-2 sm:gap-3 min-w-0 flex-1">
+                  <div className="w-7 h-7 sm:w-8 sm:h-8 bg-white/20 rounded-full flex items-center justify-center flex-shrink-0">
+                    <ApperIcon name="Headphones" size={14} className="sm:w-4 sm:h-4" />
                   </div>
-                  <div>
+                  <div className="min-w-0 flex-1">
                     <h3 className="font-semibold text-sm">Support Chat</h3>
                     {supportAgent && (
-                      <p className="text-xs text-white/80">
+                      <p className="text-xs text-white/80 truncate">
                         {supportAgent.name} • {supportAgent.status}
                       </p>
                     )}
@@ -230,15 +230,15 @@ const handleSendMessage = async () => {
                   variant="ghost"
                   size="sm"
                   onClick={() => setIsOpen(false)}
-                  className="text-white hover:bg-white/20 p-1"
+                  className="text-white hover:bg-white/20 p-2 min-h-[36px] min-w-[36px] flex-shrink-0"
                 >
-                  <ApperIcon name="X" size={18} />
+                  <ApperIcon name="X" size={16} />
                 </Button>
               </div>
 
               {/* Order Context */}
-              {currentOrder && (
-                <div className="p-3 border-b border-gray-100">
+{currentOrder && (
+                <div className="p-2 sm:p-3 border-b border-gray-100 text-sm">
                   {getOrderContextDisplay()}
                 </div>
               )}

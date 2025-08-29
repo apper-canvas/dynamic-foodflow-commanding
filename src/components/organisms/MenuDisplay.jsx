@@ -90,7 +90,7 @@ const filteredItems = activeCategory === "all"
   });
 
   return (
-<div className={className}>
+<div className={`${className} px-3 sm:px-0`}>
       {/* Dietary Filters */}
       {dietaryFilters.length > 0 && (
         <div className="mb-4 p-4 bg-blue-50 rounded-lg border border-blue-200">
@@ -110,15 +110,15 @@ const filteredItems = activeCategory === "all"
       
       {/* Category Navigation */}
       {categories.length > 2 && (
-        <div className="sticky top-0 z-30 bg-white/95 backdrop-blur-sm py-4 mb-6 border-b border-gray-100">
-          <div className="flex gap-2 overflow-x-auto pb-2 scrollbar-hide">
+<div className="sticky top-0 z-30 bg-white/95 backdrop-blur-sm py-3 sm:py-4 mb-4 sm:mb-6 border-b border-gray-100 -mx-3 sm:mx-0 px-3 sm:px-0">
+<div className="flex gap-2 overflow-x-auto pb-2 scrollbar-hide">
             {categories.map((category) => (
               <motion.button
                 key={category}
                 whileHover={{ scale: 1.05 }}
                 whileTap={{ scale: 0.95 }}
                 onClick={() => setActiveCategory(category)}
-                className={`flex items-center gap-2 px-4 py-2 rounded-full font-medium text-sm whitespace-nowrap transition-all duration-200 ${
+                className={`flex items-center gap-1.5 sm:gap-2 px-3 sm:px-4 py-2 rounded-full font-medium text-xs sm:text-sm whitespace-nowrap transition-all duration-200 min-h-[44px] ${
                   activeCategory === category
                     ? "bg-gradient-to-r from-primary-500 to-accent-500 text-white shadow-md"
                     : "bg-gray-100 text-secondary-600 hover:bg-gray-200"
@@ -126,10 +126,11 @@ const filteredItems = activeCategory === "all"
               >
                 <ApperIcon 
                   name={category === "all" ? "Grid3x3" : "UtensilsCrossed"} 
-                  size={16} 
+                  size={14} 
+                  className="sm:w-4 sm:h-4"
                 />
                 {category === "all" ? "All Items" : category}
-<span className="bg-white/20 text-xs px-1.5 py-0.5 rounded-full">
+                <span className="bg-white/20 text-xs px-1 sm:px-1.5 py-0.5 rounded-full">
                   {category === "all" ? dietaryFilteredMenu.length : dietaryFilteredMenu.filter(item => item.category === category).length}
                 </span>
               </motion.button>
@@ -146,7 +147,7 @@ const filteredItems = activeCategory === "all"
           actionText="Show All Items"
         />
       ) : (
-<div className="space-y-4">
+<div className="space-y-3 sm:space-y-4">
           {sortedItems.map((dish, index) => (
             <motion.div
               key={dish.Id}

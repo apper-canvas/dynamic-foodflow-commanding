@@ -129,12 +129,12 @@ const SearchPage = () => {
   const showPopularSearches = !loading && !error && !searchQuery;
 
   return (
-    <div className="space-y-6">
+<div className="space-y-4 sm:space-y-6 pb-24 sm:pb-8">
       {/* Search Header */}
       <motion.div
         initial={{ opacity: 0, y: -20 }}
         animate={{ opacity: 1, y: 0 }}
-        className="sticky top-0 z-40 bg-white/95 backdrop-blur-sm py-4 -mx-4 px-4 border-b border-gray-100"
+        className="sticky top-0 z-40 bg-white/95 backdrop-blur-sm py-3 sm:py-4 -mx-4 px-3 sm:px-4 border-b border-gray-100"
       >
         <SearchBar
           placeholder="Search restaurants, dishes, cuisines..."
@@ -152,7 +152,7 @@ const SearchPage = () => {
           <h2 className="text-xl font-display font-bold text-secondary-700 mb-4">
             Popular right now
           </h2>
-          <div className="grid grid-cols-2 md:grid-cols-3 gap-4">
+<div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-3 sm:gap-4">
             {popularSearches.map((search, index) => (
               <motion.button
                 key={search.term}
@@ -162,14 +162,14 @@ const SearchPage = () => {
                 whileHover={{ scale: 1.02 }}
                 whileTap={{ scale: 0.98 }}
                 onClick={() => handlePopularSearchClick(search.term)}
-                className="bg-gradient-to-br from-white to-gray-50 p-4 rounded-xl shadow-sm hover:shadow-md transition-all duration-200 text-left border border-gray-100"
+                className="bg-gradient-to-br from-white to-gray-50 p-3 sm:p-4 rounded-lg sm:rounded-xl shadow-sm hover:shadow-md transition-all duration-200 text-left border border-gray-100 min-h-[60px] sm:min-h-[auto]"
               >
                 <div className="flex items-center justify-between">
-                  <div>
-                    <h3 className="font-medium text-secondary-700 mb-1">{search.term}</h3>
-                    <p className="text-sm text-gray-500">{search.count} restaurants</p>
+                  <div className="flex-1 min-w-0">
+                    <h3 className="font-medium text-secondary-700 mb-1 text-sm sm:text-base line-clamp-1">{search.term}</h3>
+                    <p className="text-xs sm:text-sm text-gray-500">{search.count} restaurants</p>
                   </div>
-                  <ApperIcon name="TrendingUp" size={20} className="text-primary-500" />
+                  <ApperIcon name="TrendingUp" size={16} className="text-primary-500 flex-shrink-0 ml-2 sm:w-5 sm:h-5" />
                 </div>
               </motion.button>
             ))}

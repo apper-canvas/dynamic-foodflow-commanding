@@ -105,12 +105,12 @@ const OrdersPage = () => {
   }
 
   return (
-    <div className="space-y-6">
+<div className="space-y-4 sm:space-y-6 pb-24 sm:pb-8">
       {/* Header */}
       <motion.div
         initial={{ opacity: 0, y: -20 }}
         animate={{ opacity: 1, y: 0 }}
-        className="flex items-center justify-between"
+        className="flex flex-col sm:flex-row sm:items-center justify-between gap-2 sm:gap-0"
       >
         <h1 className="text-2xl font-display font-bold text-secondary-700">
           Your Orders
@@ -121,7 +121,7 @@ const OrdersPage = () => {
       </motion.div>
 
       {/* Tabs */}
-      <div className="flex bg-gray-100 rounded-xl p-1">
+<div className="flex bg-gray-100 rounded-xl p-1">
         {[
           { id: "active", label: "Active Orders" },
           { id: "past", label: "Order History" }
@@ -129,7 +129,7 @@ const OrdersPage = () => {
           <button
             key={tab.id}
             onClick={() => setActiveTab(tab.id)}
-            className={`flex-1 py-3 px-4 text-sm font-medium rounded-lg transition-all duration-200 ${
+            className={`flex-1 py-3 px-2 sm:px-4 text-xs sm:text-sm font-medium rounded-lg transition-all duration-200 min-h-[44px] ${
               activeTab === tab.id
                 ? "bg-white text-secondary-700 shadow-sm"
                 : "text-gray-600 hover:text-secondary-600"
@@ -148,7 +148,7 @@ const OrdersPage = () => {
           actionText="Start Ordering"
         />
       ) : (
-        <div className="space-y-4">
+<div className="space-y-3 sm:space-y-4">
           {filteredOrders.map((order, index) => (
             <motion.div
               key={order.Id}
@@ -157,60 +157,61 @@ const OrdersPage = () => {
               transition={{ delay: index * 0.1 }}
             >
               <Card className="hover:shadow-lg transition-all duration-200">
-                <div className="flex items-start gap-4">
-                  {/* Restaurant Info */}
-                  <div className="bg-gradient-to-br from-primary-50 to-accent-50 w-16 h-16 rounded-xl flex items-center justify-center">
-                    <ApperIcon name="Store" size={24} className="text-primary-600" />
+<div className="flex items-start gap-3 sm:gap-4">
+{/* Restaurant Info */}
+                  <div className="bg-gradient-to-br from-primary-50 to-accent-50 w-12 h-12 sm:w-16 sm:h-16 rounded-lg sm:rounded-xl flex items-center justify-center flex-shrink-0">
+                    <ApperIcon name="Store" size={20} className="text-primary-600 sm:w-6 sm:h-6" />
                   </div>
 
-                  <div className="flex-1">
+<div className="flex-1 min-w-0">
                     {/* Order Header */}
-                    <div className="flex items-start justify-between mb-3">
-                      <div>
-                        <h3 className="font-display font-semibold text-secondary-700 text-lg">
+<div className="flex flex-col sm:flex-row sm:items-start justify-between gap-2 sm:gap-0 mb-2 sm:mb-3">
+                      <div className="flex-1 min-w-0">
+                        <h3 className="font-display font-semibold text-secondary-700 text-base sm:text-lg line-clamp-1">
                           {order.restaurantName}
                         </h3>
-                        <p className="text-sm text-gray-600">
+                        <p className="text-xs sm:text-sm text-gray-600">
                           Order #{order.Id} • {order.items?.length || 0} items
                         </p>
                       </div>
-                      <Badge variant={getStatusVariant(order.status)} size="sm">
+                      <Badge variant={getStatusVariant(order.status)} size="sm" className="self-start text-xs">
                         {getStatusLabel(order.status)}
                       </Badge>
                     </div>
 
-                    {/* Order Items */}
-                    <div className="mb-4">
-                      <p className="text-sm text-gray-600 line-clamp-2">
+{/* Order Items */}
+                    <div className="mb-3 sm:mb-4">
+                      <p className="text-xs sm:text-sm text-gray-600 line-clamp-2">
                         {order.items?.map(item => item.name).join(", ") || "Order items"}
                       </p>
                     </div>
 
-                    {/* Order Meta */}
-                    <div className="flex items-center gap-6 mb-4 text-sm text-gray-500">
+{/* Order Meta */}
+                    <div className="flex flex-wrap items-center gap-3 sm:gap-6 mb-3 sm:mb-4 text-xs sm:text-sm text-gray-500">
                       <div className="flex items-center gap-1">
-                        <ApperIcon name="Calendar" size={14} />
+                        <ApperIcon name="Calendar" size={12} className="sm:w-3.5 sm:h-3.5" />
                         <span>{order.orderDate}</span>
                       </div>
                       <div className="flex items-center gap-1">
-                        <ApperIcon name="IndianRupee" size={14} />
+                        <ApperIcon name="IndianRupee" size={12} className="sm:w-3.5 sm:h-3.5" />
                         <span>₹{order.total}</span>
                       </div>
                       {order.deliveryTime && (
                         <div className="flex items-center gap-1">
-                          <ApperIcon name="Clock" size={14} />
+                          <ApperIcon name="Clock" size={12} className="sm:w-3.5 sm:h-3.5" />
                           <span>{order.deliveryTime} min</span>
                         </div>
                       )}
                     </div>
 
                     {/* Action Buttons */}
-                    <div className="flex gap-3">
+<div className="flex flex-wrap gap-2 sm:gap-3">
                       {activeTab === "active" && (
                         <Button
                           size="sm"
                           onClick={() => handleTrackOrder(order.Id)}
                           leftIcon="MapPin"
+                          className="text-xs sm:text-sm min-h-[36px] sm:min-h-[40px]"
                         >
                           Track Order
                         </Button>
@@ -221,6 +222,7 @@ const OrdersPage = () => {
                         size="sm"
                         onClick={() => handleReorder(order)}
                         leftIcon="RotateCcw"
+                        className="text-xs sm:text-sm min-h-[36px] sm:min-h-[40px]"
                       >
                         Reorder
                       </Button>
@@ -230,6 +232,7 @@ const OrdersPage = () => {
                         size="sm"
                         onClick={() => navigate(`/order/${order.Id}`)}
                         leftIcon="Eye"
+                        className="text-xs sm:text-sm min-h-[36px] sm:min-h-[40px]"
                       >
                         View Details
                       </Button>

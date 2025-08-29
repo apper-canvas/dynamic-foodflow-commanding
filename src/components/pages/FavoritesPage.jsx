@@ -1,15 +1,15 @@
-import { useState, useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import { motion } from "framer-motion";
 import { useNavigate } from "react-router-dom";
 import { toast } from "react-toastify";
+import { favoritesService } from "@/services/api/favoritesService";
+import ApperIcon from "@/components/ApperIcon";
 import Card from "@/components/atoms/Card";
-import Badge from "@/components/atoms/Badge";
 import Button from "@/components/atoms/Button";
-import Loading from "@/components/ui/Loading";
+import Badge from "@/components/atoms/Badge";
 import Error from "@/components/ui/Error";
 import Empty from "@/components/ui/Empty";
-import ApperIcon from "@/components/ApperIcon";
-import { favoritesService } from "@/services/api/favoritesService";
+import Loading from "@/components/ui/Loading";
 
 const FavoritesPage = () => {
   const navigate = useNavigate();
@@ -93,20 +93,20 @@ const FavoritesPage = () => {
   }
 
   return (
-    <div className="space-y-6">
+<div className="space-y-4 sm:space-y-6 pb-24 sm:pb-8">
       {/* Header */}
       <motion.div
         initial={{ opacity: 0, y: -20 }}
         animate={{ opacity: 1, y: 0 }}
-        className="flex items-center justify-between"
+        className="flex flex-col sm:flex-row sm:items-center justify-between gap-2 sm:gap-0"
       >
         <div className="flex items-center gap-3">
-          <ApperIcon name="Heart" size={24} className="text-primary-600" />
-          <h1 className="text-2xl font-display font-bold text-secondary-700">
+          <ApperIcon name="Heart" size={20} className="text-primary-600 sm:w-6 sm:h-6" />
+          <h1 className="text-xl sm:text-2xl font-display font-bold text-secondary-700">
             Your Favorites
           </h1>
         </div>
-        <Badge variant="secondary" size="md">
+        <Badge variant="secondary" size="md" className="self-start sm:self-auto">
           {favorites.length} items
         </Badge>
       </motion.div>
@@ -124,51 +124,51 @@ const FavoritesPage = () => {
           <motion.div
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
-            className="grid grid-cols-2 md:grid-cols-4 gap-4 mb-6"
+className="grid grid-cols-2 sm:grid-cols-4 gap-3 sm:gap-4 mb-4 sm:mb-6"
           >
-            <div className="bg-gradient-to-br from-primary-50 to-primary-100 rounded-xl p-4">
-              <div className="flex items-center gap-2 mb-2">
-                <ApperIcon name="UtensilsCrossed" size={16} className="text-primary-600" />
-                <span className="text-sm font-medium text-primary-700">Dishes</span>
+            <div className="bg-gradient-to-br from-primary-50 to-primary-100 rounded-lg sm:rounded-xl p-3 sm:p-4">
+              <div className="flex items-center gap-1.5 sm:gap-2 mb-1 sm:mb-2">
+                <ApperIcon name="UtensilsCrossed" size={14} className="text-primary-600 sm:w-4 sm:h-4" />
+                <span className="text-xs sm:text-sm font-medium text-primary-700">Dishes</span>
               </div>
-              <span className="text-xl font-bold text-primary-700">
+              <span className="text-lg sm:text-xl font-bold text-primary-700">
                 {favorites.filter(f => f.type === 'dish').length}
               </span>
             </div>
             
-            <div className="bg-gradient-to-br from-accent-50 to-accent-100 rounded-xl p-4">
-              <div className="flex items-center gap-2 mb-2">
-                <ApperIcon name="Store" size={16} className="text-accent-600" />
-                <span className="text-sm font-medium text-accent-700">Restaurants</span>
+            <div className="bg-gradient-to-br from-accent-50 to-accent-100 rounded-lg sm:rounded-xl p-3 sm:p-4">
+              <div className="flex items-center gap-1.5 sm:gap-2 mb-1 sm:mb-2">
+                <ApperIcon name="Store" size={14} className="text-accent-600 sm:w-4 sm:h-4" />
+                <span className="text-xs sm:text-sm font-medium text-accent-700">Restaurants</span>
               </div>
-              <span className="text-xl font-bold text-accent-700">
+              <span className="text-lg sm:text-xl font-bold text-accent-700">
                 {favorites.filter(f => f.type === 'restaurant').length}
               </span>
             </div>
             
-            <div className="bg-gradient-to-br from-blue-50 to-blue-100 rounded-xl p-4">
-              <div className="flex items-center gap-2 mb-2">
-                <ApperIcon name="Zap" size={16} className="text-blue-600" />
-                <span className="text-sm font-medium text-blue-700">Quick Orders</span>
+            <div className="bg-gradient-to-br from-blue-50 to-blue-100 rounded-lg sm:rounded-xl p-3 sm:p-4">
+              <div className="flex items-center gap-1.5 sm:gap-2 mb-1 sm:mb-2">
+                <ApperIcon name="Zap" size={14} className="text-blue-600 sm:w-4 sm:h-4" />
+                <span className="text-xs sm:text-sm font-medium text-blue-700">Quick Orders</span>
               </div>
-              <span className="text-xl font-bold text-blue-700">
+              <span className="text-lg sm:text-xl font-bold text-blue-700">
                 {favorites.filter(f => f.quickOrder).length}
               </span>
             </div>
             
-            <div className="bg-gradient-to-br from-purple-50 to-purple-100 rounded-xl p-4">
-              <div className="flex items-center gap-2 mb-2">
-                <ApperIcon name="Star" size={16} className="text-purple-600" />
-                <span className="text-sm font-medium text-purple-700">Top Rated</span>
+            <div className="bg-gradient-to-br from-purple-50 to-purple-100 rounded-lg sm:rounded-xl p-3 sm:p-4">
+              <div className="flex items-center gap-1.5 sm:gap-2 mb-1 sm:mb-2">
+                <ApperIcon name="Star" size={14} className="text-purple-600 sm:w-4 sm:h-4" />
+                <span className="text-xs sm:text-sm font-medium text-purple-700">Top Rated</span>
               </div>
-              <span className="text-xl font-bold text-purple-700">
+              <span className="text-lg sm:text-xl font-bold text-purple-700">
                 {favorites.filter(f => f.rating >= 4.5).length}
               </span>
             </div>
           </motion.div>
 
           {/* Favorites Grid */}
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+<div className="grid grid-cols-1 gap-3 sm:gap-4">
             {favorites.map((item, index) => (
               <motion.div
                 key={item.Id}
@@ -177,9 +177,9 @@ const FavoritesPage = () => {
                 transition={{ delay: index * 0.1 }}
               >
                 <Card className="hover:shadow-lg transition-all duration-200 relative">
-                  <div className="flex gap-4 p-4">
+                  <div className="flex gap-3 sm:gap-4 p-3 sm:p-4">
                     {/* Item Image */}
-                    <div className="w-20 h-20 relative flex-shrink-0">
+                    <div className="w-16 h-16 sm:w-20 sm:h-20 relative flex-shrink-0">
                       {item.image ? (
                         <img 
                           src={item.image} 
@@ -190,8 +190,8 @@ const FavoritesPage = () => {
                         <div className="w-full h-full bg-gradient-to-br from-gray-200 to-gray-300 rounded-lg flex items-center justify-center">
                           <ApperIcon 
                             name={item.type === 'restaurant' ? 'Store' : 'UtensilsCrossed'} 
-                            size={24} 
-                            className="text-gray-400" 
+                            size={20} 
+                            className="text-gray-400 sm:w-6 sm:h-6" 
                           />
                         </div>
                       )}
@@ -201,6 +201,7 @@ const FavoritesPage = () => {
                         <Badge 
                           variant={item.type === 'restaurant' ? 'accent' : 'primary'} 
                           size="xs"
+                          className="text-xs"
                         >
                           <ApperIcon 
                             name={item.type === 'restaurant' ? 'Store' : 'UtensilsCrossed'} 
@@ -212,59 +213,59 @@ const FavoritesPage = () => {
 
                     {/* Item Info */}
                     <div className="flex-1 min-w-0">
-                      <div className="flex items-start justify-between mb-2">
-                        <h3 className="font-display font-semibold text-secondary-700 text-lg truncate">
+                      <div className="flex items-start justify-between mb-1 sm:mb-2">
+                        <h3 className="font-display font-semibold text-secondary-700 text-base sm:text-lg line-clamp-1 flex-1 pr-2">
                           {item.name}
                         </h3>
                         
                         <button
                           onClick={() => handleRemoveFavorite(item)}
                           disabled={removingId === item.Id}
-                          className="text-red-500 hover:text-red-600 p-1 hover:bg-red-50 rounded-full transition-colors"
+                          className="text-red-500 hover:text-red-600 p-1.5 hover:bg-red-50 rounded-full transition-colors min-h-[36px] min-w-[36px] flex items-center justify-center flex-shrink-0"
                         >
                           <ApperIcon 
                             name={removingId === item.Id ? "Loader2" : "HeartOff"} 
-                            size={16} 
+                            size={14} 
                             className={removingId === item.Id ? "animate-spin" : ""}
                           />
                         </button>
                       </div>
 
-                      <p className="text-sm text-gray-600 mb-2 line-clamp-2">
+                      <p className="text-xs sm:text-sm text-gray-600 mb-2 line-clamp-2">
                         {item.description || item.cuisine?.join(", ") || "Delicious food awaits"}
                       </p>
 
                       {/* Badges */}
-                      <div className="flex flex-wrap items-center gap-2 mb-3">
+                      <div className="flex flex-wrap items-center gap-1 sm:gap-2 mb-2 sm:mb-3">
                         {item.dietary && getDietaryBadge(item.dietary)}
                         {item.rating && (
-                          <Badge variant="secondary" size="xs">
-                            <ApperIcon name="Star" size={10} className="text-accent-500" />
+                          <Badge variant="secondary" size="xs" className="text-xs">
+                            <ApperIcon name="Star" size={8} className="text-accent-500" />
                             {item.rating}
                           </Badge>
                         )}
                         {item.deliveryTime && (
-                          <Badge variant="info" size="xs">
-                            <ApperIcon name="Clock" size={10} />
+                          <Badge variant="info" size="xs" className="text-xs">
+                            <ApperIcon name="Clock" size={8} />
                             {item.deliveryTime} min
                           </Badge>
                         )}
                         {item.quickOrder && (
-                          <Badge variant="accent" size="xs">
-                            <ApperIcon name="Zap" size={10} />
+                          <Badge variant="accent" size="xs" className="text-xs">
+                            <ApperIcon name="Zap" size={8} />
                             Quick Order
                           </Badge>
                         )}
                       </div>
 
                       {/* Actions */}
-                      <div className="flex items-center justify-between">
+                      <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-2 sm:gap-0">
                         <div className="flex items-center gap-2">
                           {item.price && (
-                            <span className="font-bold text-primary-600">₹{item.price}</span>
+                            <span className="font-bold text-primary-600 text-sm sm:text-base">₹{item.price}</span>
                           )}
                           {item.originalPrice && item.originalPrice > item.price && (
-                            <span className="text-sm text-gray-500 line-through">
+                            <span className="text-xs sm:text-sm text-gray-500 line-through">
                               ₹{item.originalPrice}
                             </span>
                           )}
@@ -274,15 +275,15 @@ const FavoritesPage = () => {
                           size="sm"
                           onClick={() => handleReorder(item)}
                           leftIcon="RotateCcw"
-                          className="flex-shrink-0"
+                          className="flex-shrink-0 text-xs sm:text-sm min-h-[36px] self-start sm:self-auto"
                         >
                           {item.type === 'restaurant' ? 'Visit' : 'Reorder'}
                         </Button>
                       </div>
 
                       {/* Added Date */}
-                      <div className="flex items-center gap-1 mt-2 text-xs text-gray-500">
-                        <ApperIcon name="Calendar" size={12} />
+                      <div className="flex items-center gap-1 mt-1 sm:mt-2 text-xs text-gray-500">
+                        <ApperIcon name="Calendar" size={10} className="sm:w-3 sm:h-3" />
                         <span>Added {item.dateAdded}</span>
                       </div>
                     </div>
@@ -291,10 +292,10 @@ const FavoritesPage = () => {
               </motion.div>
             ))}
           </div>
-        </div>
+        )}
+)}
       )}
     </div>
-  );
 };
 
 export default FavoritesPage;
