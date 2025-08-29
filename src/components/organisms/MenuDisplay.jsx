@@ -5,7 +5,7 @@ import DishCard from "@/components/molecules/DishCard";
 import Error from "@/components/ui/Error";
 import Empty from "@/components/ui/Empty";
 import Loading from "@/components/ui/Loading";
-import Badge from "@/components/ui/Badge";
+import Badge from "@/components/atoms/Badge";
 
 const MenuDisplay = ({ 
   menu = [], 
