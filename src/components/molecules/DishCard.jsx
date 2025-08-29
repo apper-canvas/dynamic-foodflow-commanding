@@ -106,79 +106,96 @@ return (
             <div className="flex-1">
               <div className="flex items-start gap-2 mb-2">
                 <div className="flex-1">
-                  <div className="flex flex-wrap items-center gap-2 mb-2">
-                    {getDietaryBadge()}
-                    {hasBestSeller && (
-                      <Badge variant="accent" size="xs">
-                        <ApperIcon name="TrendingUp" size={10} />
-                        Bestseller
-                      </Badge>
-                    )}
-                    {isPopular && (
-                      <Badge variant="warning" size="xs">
-                        <ApperIcon name="Flame" size={10} />
-                        Popular
-                      </Badge>
-                    )}
-                    {dish.allergens && dish.allergens.length > 0 && (
-                      <Badge variant="danger" size="xs">
-                        <ApperIcon name="AlertTriangle" size={10} />
-                        Contains Allergens
-                      </Badge>
-                    )}
+{/* Header Section - Name and Key Badges */}
+                  <div className="mb-3">
+                    <h4 className="font-display font-bold text-secondary-700 text-xl leading-tight mb-2">
+                      {dish.name}
+                    </h4>
+                    
+                    <div className="flex flex-wrap items-center gap-2">
+                      {getDietaryBadge()}
+                      {hasBestSeller && (
+                        <Badge variant="accent" size="xs">
+                          <ApperIcon name="TrendingUp" size={10} />
+                          Bestseller
+                        </Badge>
+                      )}
+                      {isPopular && (
+                        <Badge variant="warning" size="xs">
+                          <ApperIcon name="Flame" size={10} />
+                          Popular
+                        </Badge>
+                      )}
+                      {dish.allergens && dish.allergens.length > 0 && (
+                        <Badge variant="danger" size="xs">
+                          <ApperIcon name="AlertTriangle" size={10} />
+                          Allergens
+                        </Badge>
+                      )}
+                    </div>
                   </div>
                   
-                  <h4 className="font-display font-semibold text-secondary-700 text-lg leading-tight mb-1">
+{/* Pricing Section */}
                     {dish.name}
-                  </h4>
-                  
-                  <div className="flex items-center gap-3 mb-2">
-                    <span className="text-lg font-bold text-secondary-700">
-                      <div className="flex items-center gap-2">
+<div className="flex items-center justify-between mb-3">
+                    <div className="flex items-center gap-3">
+                      <div className="text-2xl font-bold text-secondary-700">
                         {hasOffer ? (
-                          <>
-                            <span className="text-gray-400 line-through text-sm">₹{dish.price}</span>
-                            <span className="text-primary-600 font-bold">₹{Math.round(dish.price * (1 - dish.discount/100))}</span>
-                          </>
+                          <div className="flex items-center gap-2">
+                            <span className="text-gray-400 line-through text-lg">₹{dish.price}</span>
+                            <span className="text-primary-600">₹{Math.round(dish.price * (1 - dish.discount/100))}</span>
+                          </div>
                         ) : (
                           <span>₹{dish.price}</span>
                         )}
                       </div>
-                    </span>
-                    {dish.originalPrice && dish.originalPrice > dish.price && (
-                      <span className="text-sm text-gray-500 line-through">
-                        ₹{dish.originalPrice}
-                      </span>
-                    )}
+                      {dish.originalPrice && dish.originalPrice > dish.price && (
+                        <span className="text-sm text-gray-500 line-through">
+                          ₹{dish.originalPrice}
+                        </span>
+                      )}
+                    </div>
+                    
                     {isSpicy && (
-                      <div className="flex text-red-500">
-                        {Array(dish.spiceLevel).fill(0).map((_, i) => (
-                          <ApperIcon key={i} name="Flame" size={12} />
-                        ))}
+                      <div className="flex items-center gap-1">
+                        <div className="flex text-red-500">
+                          {Array(dish.spiceLevel).fill(0).map((_, i) => (
+                            <ApperIcon key={i} name="Flame" size={14} />
+                          ))}
+                        </div>
+                        <span className="text-xs text-gray-500 ml-1">Spicy</span>
                       </div>
                     )}
                   </div>
                 </div>
               </div>
               
-              <p className="text-sm text-gray-600 leading-relaxed mb-3">
-                {dish.description}
-              </p>
+{/* Description Section */}
+              <div className="mb-4">
+                <p className="text-sm text-gray-600 leading-relaxed">
+                  {dish.description}
+                </p>
+              </div>
               
+{/* Recommendation Reason */}
               {dish.reason && (
-                <div className="mb-3 p-3 bg-gradient-to-r from-blue-50 to-purple-50 rounded-lg border border-blue-200 shadow-sm">
-                  <p className="text-xs text-blue-800 flex items-center gap-2 font-medium">
-                    <ApperIcon name="Brain" size={12} className="text-purple-600" />
-                    {dish.reason}
-                  </p>
+                <div className="mb-4 p-3 bg-gradient-to-r from-blue-50 to-purple-50 rounded-lg border border-blue-200">
+                  <div className="flex items-start gap-2">
+                    <ApperIcon name="Brain" size={14} className="text-purple-600 mt-0.5 flex-shrink-0" />
+                    <div>
+                      <p className="text-xs font-medium text-blue-700 mb-1">Why we recommend this:</p>
+                      <p className="text-xs text-blue-800 leading-relaxed">{dish.reason}</p>
+                    </div>
+                  </div>
                 </div>
               )}
               
-              <div className="flex flex-wrap gap-2 mb-3">
+{/* Interactive Options */}
+              <div className="flex flex-wrap gap-3 mb-4">
                 {dish.addOns && dish.addOns.length > 0 && (
                   <button
                     onClick={() => setShowCustomization(!showCustomization)}
-                    className="text-xs text-primary-600 hover:text-primary-700 font-medium flex items-center gap-1 interactive-button"
+                    className="text-xs text-primary-600 hover:text-primary-700 font-medium flex items-center gap-1.5 interactive-button bg-primary-50 px-2 py-1 rounded-full transition-colors"
                   >
                     <ApperIcon name="Plus" size={12} />
                     Customizable
@@ -188,19 +205,19 @@ return (
                 {(dish.ingredients || dish.allergens) && (
                   <button
                     onClick={() => setShowAllergenInfo(!showAllergenInfo)}
-                    className="text-xs text-blue-600 hover:text-blue-700 font-medium flex items-center gap-1 interactive-button"
+                    className="text-xs text-blue-600 hover:text-blue-700 font-medium flex items-center gap-1.5 interactive-button bg-blue-50 px-2 py-1 rounded-full transition-colors"
                   >
                     <ApperIcon name="Info" size={12} />
-                    View Ingredients
+                    Ingredients
                   </button>
                 )}
                 
                 <button
                   onClick={() => setShowRating(!showRating)}
-                  className="text-xs text-yellow-600 hover:text-yellow-700 font-medium flex items-center gap-1 interactive-button"
+                  className="text-xs text-yellow-600 hover:text-yellow-700 font-medium flex items-center gap-1.5 interactive-button bg-yellow-50 px-2 py-1 rounded-full transition-colors"
                 >
                   <ApperIcon name="Star" size={12} />
-                  Rate This
+                  Rate Dish
                 </button>
               </div>
 
@@ -225,15 +242,15 @@ return (
               )}
 
               {/* Social Sharing */}
-              <div className="flex items-center justify-between mb-3">
+{/* Bottom Section - Share and Prep Time */}
+              <div className="flex items-center justify-between pt-2 border-t border-gray-100">
                 <ShareButton item={dish} type="dish" className="text-xs" />
                 
-                {/* Cooking Progress Indicator */}
                 {dish.prepTime && (
                   <div className="flex items-center gap-2 text-xs text-gray-500">
                     <ApperIcon name="Clock" size={12} />
-                    <span>{dish.prepTime} min prep</span>
-                    <div className="w-16 h-1 bg-gray-200 rounded-full overflow-hidden">
+                    <span className="font-medium">{dish.prepTime} min</span>
+                    <div className="w-12 h-1 bg-gray-200 rounded-full overflow-hidden">
                       <motion.div
                         className="h-full bg-primary-500"
                         initial={{ width: 0 }}
