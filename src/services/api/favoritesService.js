@@ -20,11 +20,12 @@ export const favoritesService = {
   async create(item) {
     await delay(400);
     const newId = Math.max(...favoritesData.map(f => f.Id), 0) + 1;
-    const newFavorite = { 
+const newFavorite = { 
       ...item, 
       Id: newId,
       dateAdded: new Date().toISOString().split("T")[0],
-      quickOrder: item.type === 'dish' // Dishes can be quick ordered
+      quickOrder: item.type === 'dish', // Dishes can be quick ordered
+      engagementScore: Math.floor(Math.random() * 20) + 80 // Add engagement metric
     };
     favoritesData.push(newFavorite);
     return { ...newFavorite };
@@ -60,12 +61,13 @@ export const favoritesService = {
     } else {
       // Add to favorites
       const newId = Math.max(...favoritesData.map(f => f.Id), 0) + 1;
-      const newFavorite = { 
+const newFavorite = { 
         ...item,
         Id: newId,
         originalId: item.Id,
         dateAdded: new Date().toISOString().split("T")[0],
-        quickOrder: item.type === 'dish'
+        quickOrder: item.type === 'dish',
+        engagementScore: Math.floor(Math.random() * 20) + 80 // Add engagement metric
       };
       favoritesData.push(newFavorite);
       return { action: 'added', item: { ...newFavorite } };

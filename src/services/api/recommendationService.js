@@ -63,10 +63,11 @@ class RecommendationEngine {
     if (restaurant.deliveryTime <= 25) score += 10;
     
 // Promotional boost - enhanced for special offers
-    if (restaurant.isPromoted) score += 8;
+    if (restaurant.isPromoted) score += 10;
     if (restaurant.discount > 0) {
-      score += restaurant.discount * 0.8; // Higher boost for discounts
-      if (restaurant.discount >= 20) score += 5; // Extra boost for significant discounts
+      score += restaurant.discount * 1.0; // Higher boost for discounts
+      if (restaurant.discount >= 20) score += 8; // Extra boost for significant discounts
+      if (restaurant.discount >= 30) score += 5; // Premium boost for exceptional deals
     }
     return Math.min(score, 100); // Cap at 100
   }
@@ -106,15 +107,14 @@ class RecommendationEngine {
     // Price preference (favor items around user's avg order value)
     const priceScore = this.getPriceAffinityScore(dish.price, userPrefs.avgOrderValue);
 score += priceScore;
-    
-    // Special offers boost
+// Special offers boost - enhanced for engagement
     if (dish.discount && dish.discount > 0) {
-      score += dish.discount * 0.7;
-      if (dish.discount >= 15) score += 4; // Extra boost for good deals
+      score += dish.discount * 0.9; // Higher multiplier for engagement
+      if (dish.discount >= 15) score += 6; // Extra boost for good deals
+      if (dish.discount >= 25) score += 4; // Premium boost for exceptional deals
     }
-    if (dish.isLimitedTime) score += 6;
-    if (dish.isComboOffer) score += 5;
-    
+    if (dish.isLimitedTime) score += 8; // Higher urgency boost
+    if (dish.isComboOffer) score += 7; // Better combo value perception
     return Math.max(0, Math.min(score, 100));
   }
 
@@ -214,10 +214,11 @@ return {
         trending: restaurantScores.filter(r => r.isPromoted).slice(0, 4),
         quickDelivery: restaurantScores.filter(r => r.deliveryTime <= 25).slice(0, 4),
         vegetarian: restaurantScores.filter(r => r.isVegetarian).slice(0, 4),
-        specialOffers: restaurantScores.filter(r => r.discount > 0).slice(0, 6)
+        specialOffers: restaurantScores.filter(r => r.discount > 0).sort((a, b) => b.discount - a.discount).slice(0, 8), // Enhanced sorting by discount
+        megaDeals: restaurantScores.filter(r => r.discount >= 30).slice(0, 3) // New category for exceptional deals
       },
       dishes: {
-        forYou: dishScores.slice(0, 8),
+        forYou: dishScores.slice(0, 10), // Increased for better engagement
         trending: dishScores.filter(d => d.isPopular).slice(0, 6),
         contextual: dishScores.filter(d => 
           RecommendationEngine.getTimeBasedBonus(d, timeOfDay) > 0
@@ -235,10 +236,11 @@ return {
           d.dietary?.includes("veg") && d.calories < 400 && (!d.allergens || d.allergens.length === 0)
         ).slice(0, 6),
         budgetFriendly: dishScores.filter(d => d.price <= 200).slice(0, 6),
-        specialOffers: dishScores.filter(d => d.discount && d.discount > 0).slice(0, 8),
-        flashSales: dishScores.filter(d => d.discount >= 25).slice(0, 4),
-        limitedTime: dishScores.filter(d => d.isLimitedTime).slice(0, 4),
-        comboDeal: dishScores.filter(d => d.isComboOffer).slice(0, 4)
+        specialOffers: dishScores.filter(d => d.discount && d.discount > 0).sort((a, b) => b.discount - a.discount).slice(0, 10), // Enhanced with sorting
+        flashSales: dishScores.filter(d => d.discount >= 25).sort((a, b) => b.discount - a.discount).slice(0, 6), // Enhanced quantity
+        limitedTime: dishScores.filter(d => d.isLimitedTime).slice(0, 6), // Enhanced quantity
+        comboDeal: dishScores.filter(d => d.isComboOffer).slice(0, 6), // Enhanced quantity
+        hotDeals: dishScores.filter(d => d.discount >= 20 && d.isPopular).slice(0, 4) // New engaging category
       }
     };
   },

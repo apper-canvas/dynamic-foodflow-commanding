@@ -65,17 +65,17 @@ const showRecommendationBadge = dish.affinityScore && dish.affinityScore > 80;
       className={className}
     >
 <Card className={`p-0 overflow-hidden dish-card-hover relative ${
-        isRecommended ? 'ring-2 ring-blue-200 ring-opacity-50' : ''
-      } ${hasOffer ? 'ring-2 ring-primary-200 ring-opacity-70' : ''}`}>
+        isRecommended ? 'ring-2 ring-blue-300 ring-opacity-60 shadow-lg' : ''
+      } ${hasOffer ? 'ring-2 ring-primary-300 ring-opacity-80 shadow-lg' : ''}`}>
         <div className="absolute top-2 left-2 z-10 flex gap-1">
           {hasOffer && (
-            <Badge variant="primary" size="xs" className="bg-gradient-to-r from-primary-500 to-primary-600 text-white font-bold">
+            <Badge variant="primary" size="xs" className="bg-gradient-to-r from-primary-500 via-primary-600 to-accent-500 text-white font-bold shadow-md animate-pulse">
               <ApperIcon name="Percent" size={10} />
               {dish.discount}% OFF
             </Badge>
           )}
           {showRecommendationBadge && !hasOffer && (
-            <Badge variant="info" size="xs" className="bg-blue-500 text-white">
+            <Badge variant="info" size="xs" className="bg-gradient-to-r from-blue-500 to-purple-500 text-white shadow-md">
               <ApperIcon name="Brain" size={10} />
               {dish.affinityScore}% match
             </Badge>
@@ -146,10 +146,10 @@ const showRecommendationBadge = dish.affinityScore && dish.affinityScore > 80;
               {dish.description}
             </p>
             
-            {dish.reason && (
-              <div className="mb-3 p-2 bg-blue-50 rounded-lg border border-blue-200">
-                <p className="text-xs text-blue-700 flex items-center gap-1">
-                  <ApperIcon name="Brain" size={12} />
+{dish.reason && (
+              <div className="mb-3 p-3 bg-gradient-to-r from-blue-50 to-purple-50 rounded-lg border border-blue-200 shadow-sm">
+                <p className="text-xs text-blue-800 flex items-center gap-2 font-medium">
+                  <ApperIcon name="Brain" size={12} className="text-purple-600" />
                   {dish.reason}
                 </p>
               </div>
@@ -337,13 +337,14 @@ const showRecommendationBadge = dish.affinityScore && dish.affinityScore > 80;
         />
       </button>
       
-      {isRecommended && (
+{isRecommended && (
         <motion.div
-          initial={{ opacity: 0, scale: 0.8 }}
-          animate={{ opacity: 1, scale: 1 }}
-          className="absolute -top-2 -right-2 bg-gradient-to-r from-blue-500 to-purple-500 text-white rounded-full p-1 shadow-lg"
+          initial={{ opacity: 0, scale: 0.8, rotate: -180 }}
+          animate={{ opacity: 1, scale: 1, rotate: 0 }}
+          transition={{ duration: 0.4, ease: "easeOut" }}
+          className="absolute -top-2 -right-2 bg-gradient-to-r from-blue-500 via-purple-500 to-blue-600 text-white rounded-full p-1.5 shadow-lg"
         >
-          <ApperIcon name="Sparkles" size={12} />
+          <ApperIcon name="Sparkles" size={12} className="animate-pulse" />
         </motion.div>
       )}
     </motion.div>

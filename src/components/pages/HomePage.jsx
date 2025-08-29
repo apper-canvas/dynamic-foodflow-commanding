@@ -105,19 +105,19 @@ return restaurant.isVegetarian;
   });
 
 return (
-    <div className="space-y-8">
+<div className="space-y-8">
       {/* Hero Section */}
       <motion.section
         initial={{ opacity: 0, y: 20 }}
         animate={{ opacity: 1, y: 0 }}
-        className="bg-gradient-to-r from-primary-500 via-primary-600 to-accent-500 rounded-2xl p-8 text-white relative overflow-hidden"
+        className="bg-gradient-to-br from-primary-500 via-primary-600 through-accent-500 to-primary-700 rounded-2xl p-8 text-white relative overflow-hidden shadow-xl"
       >
         <div className="relative z-10">
           <h1 className="text-3xl md:text-4xl font-display font-bold mb-4">
-            Delicious food,<br />delivered fast
+            Delicious food,<br />delivered fast ⚡
           </h1>
-          <p className="text-primary-100 mb-6 max-w-md text-lg">
-            Order from your favorite restaurants and get fresh, hot meals delivered to your doorstep.
+          <p className="text-primary-100 mb-6 max-w-md text-lg leading-relaxed">
+            Order from your favorite restaurants and get fresh, hot meals delivered to your doorstep with AI-powered recommendations.
           </p>
           <div className="flex flex-col sm:flex-row gap-3">
             <Button
@@ -125,7 +125,7 @@ return (
               size="lg"
               onClick={() => navigate("/recommendations")}
               leftIcon="Brain"
-              className="bg-white text-primary-600 hover:bg-gray-50"
+              className="bg-white text-primary-600 hover:bg-gray-50 shadow-lg hover:shadow-xl transform hover:scale-[1.02] transition-all duration-200"
             >
               AI Recommendations
             </Button>
@@ -134,14 +134,17 @@ return (
               size="lg"
               onClick={() => navigate("/search")}
               leftIcon="Search"
-              className="border-white text-white hover:bg-white/10"
+              className="border-white text-white hover:bg-white/10 backdrop-blur-sm"
             >
               Explore All
             </Button>
           </div>
         </div>
-        <div className="absolute top-4 right-4 opacity-20">
+        <div className="absolute top-4 right-4 opacity-10">
           <ApperIcon name="UtensilsCrossed" size={120} />
+        </div>
+        <div className="absolute -bottom-2 -right-2 opacity-5">
+          <ApperIcon name="Sparkles" size={80} />
         </div>
       </motion.section>
 
@@ -154,12 +157,13 @@ return (
         >
           <div className="flex items-center justify-between mb-4">
             <div className="flex items-center gap-2">
-              <ApperIcon name="Percent" size={20} className="text-primary-500" />
+              <ApperIcon name="Percent" size={20} className="text-primary-500 animate-pulse" />
               <h2 className="text-lg font-display font-semibold text-secondary-700">
-                Special Offers Just for You
+                Special Offers Just for You ✨
               </h2>
             </div>
-            <Badge variant="accent" size="sm" className="bg-gradient-to-r from-primary-500 to-accent-500">
+            <Badge variant="accent" size="sm" className="bg-gradient-to-r from-primary-500 via-accent-500 to-primary-600 animate-pulse shadow-lg">
+              <ApperIcon name="Clock" size={12} />
               Limited Time
             </Badge>
           </div>

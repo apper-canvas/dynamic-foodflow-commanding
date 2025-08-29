@@ -65,7 +65,7 @@ const FilterChips = ({ filters, activeFilters, onFilterChange, className, showDi
 className={cn(
               "flex items-center gap-2 px-4 py-2 rounded-full font-medium text-sm transition-all duration-200 border-2",
               isActive 
-                ? filter.id === "specialOffers" || filter.id === "flashSales" 
+? filter.id === "offers" || filter.id === "flash_deals" 
                   ? "bg-gradient-to-r from-primary-500 via-accent-500 to-primary-600 text-white border-transparent shadow-lg transform scale-[1.02] animate-pulse" 
                   : "bg-gradient-to-r from-primary-500 to-accent-500 text-white border-transparent shadow-md transform scale-[1.02]"
                 : "bg-white text-secondary-600 border-gray-200 hover:border-primary-500 hover:text-primary-600 shadow-sm hover:shadow-md"
@@ -75,9 +75,9 @@ className={cn(
               <ApperIcon 
                 name={filter.icon} 
                 size={16} 
-                className={cn(
+className={cn(
                   isActive ? "text-white" : "text-current",
-                  (filter.id === "specialOffers" || filter.id === "flashSales") && isActive ? "animate-bounce" : ""
+                  (filter.id === "offers" || filter.id === "flash_deals") && isActive ? "animate-bounce" : ""
                 )}
               />
             )}

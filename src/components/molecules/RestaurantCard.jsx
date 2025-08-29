@@ -40,20 +40,20 @@ const hasDiscount = restaurant.discount && restaurant.discount > 0;
 {/* Badges */}
             <div className="absolute top-2 left-2 flex gap-2 flex-wrap">
               {isSpecialOffer && (
-                <Badge variant="accent" size="xs" className="bg-gradient-to-r from-accent-500 to-accent-600 text-white font-bold animate-pulse">
-                  <ApperIcon name="Zap" size={10} />
+                <Badge variant="accent" size="xs" className="bg-gradient-to-r from-accent-500 via-primary-500 to-accent-600 text-white font-bold animate-pulse shadow-lg">
+                  <ApperIcon name="Zap" size={10} className="animate-bounce" />
                   SPECIAL
                 </Badge>
               )}
               {hasDiscount && (
-                <Badge variant="primary" size="xs" className={isSpecialOffer ? "bg-primary-600" : "bg-primary-500"}>
+                <Badge variant="primary" size="xs" className={isSpecialOffer ? "bg-gradient-to-r from-primary-600 to-primary-700 shadow-md" : "bg-gradient-to-r from-primary-500 to-primary-600 shadow-md"}>
                   <ApperIcon name="Percent" size={10} />
                   {restaurant.discount}% OFF
                 </Badge>
               )}
               {isPromoted && !isSpecialOffer && (
-                <Badge variant="accent" size="xs">
-                  <ApperIcon name="Star" size={10} />
+                <Badge variant="accent" size="xs" className="bg-gradient-to-r from-accent-500 to-accent-600 shadow-md">
+                  <ApperIcon name="Star" size={10} className="text-yellow-200" />
                   Promoted
                 </Badge>
               )}

@@ -51,18 +51,26 @@
 
 .Toastify__toast--success {
   background: linear-gradient(135deg, #00B894 0%, #00A085 100%);
+  color: white;
+  font-weight: 500;
 }
 
 .Toastify__toast--error {
   background: linear-gradient(135deg, #FF6B6B 0%, #FF5252 100%);
+  color: white;
+  font-weight: 500;
 }
 
 .Toastify__toast--warning {
   background: linear-gradient(135deg, #FDCB6E 0%, #F39C12 100%);
+  color: white;
+  font-weight: 500;
 }
 
 .Toastify__toast--info {
   background: linear-gradient(135deg, #74B9FF 0%, #0984E3 100%);
+  color: white;
+  font-weight: 500;
 }
 
 .Toastify__progress-bar {
