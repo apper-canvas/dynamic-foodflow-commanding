@@ -1,19 +1,19 @@
-import { useState } from "react";
+import React, { useState } from "react";
 import { motion } from "framer-motion";
-import { useNavigate, useLocation } from "react-router-dom";
+import { useLocation, useNavigate } from "react-router-dom";
+import ApperIcon from "@/components/ApperIcon";
 import SearchBar from "@/components/molecules/SearchBar";
 import LocationSelector from "@/components/molecules/LocationSelector";
 import Button from "@/components/atoms/Button";
 import Badge from "@/components/atoms/Badge";
-import ApperIcon from "@/components/ApperIcon";
-
 const Header = ({ 
   currentAddress, 
   savedAddresses, 
   onLocationSelect, 
   onCurrentLocationClick,
   cartItemCount = 0,
-  onSearch
+  onSearch,
+  onChatToggle
 }) => {
   const navigate = useNavigate();
   const location = useLocation();
@@ -107,7 +107,21 @@ const Header = ({
                 )}
               </Button>
             </motion.div>
-
+{/* Support Chat Button */}
+          <Button
+            variant="ghost"
+            size="sm"
+            onClick={() => {
+              // Trigger chat widget toggle through global event
+              if (typeof window !== 'undefined' && window.CustomEvent) {
+                const event = new window.CustomEvent('toggleChat');
+                window.dispatchEvent(event);
+              }
+            }}
+            className="relative p-2 hover:bg-primary-50"
+          >
+            <ApperIcon name="MessageCircle" size={20} className="text-secondary-600" />
+          </Button>
             {/* Profile Button */}
             <div className="relative">
               <Button

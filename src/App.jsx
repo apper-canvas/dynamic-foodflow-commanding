@@ -3,6 +3,7 @@ import { BrowserRouter, Routes, Route } from "react-router-dom";
 import { ToastContainer } from "react-toastify";
 import Header from "@/components/organisms/Header";
 import BottomNavigation from "@/components/organisms/BottomNavigation";
+import ChatWidget from "@/components/organisms/ChatWidget";
 import HomePage from "@/components/pages/HomePage";
 import SearchPage from "@/components/pages/SearchPage";
 import RestaurantPage from "@/components/pages/RestaurantPage";
@@ -60,7 +61,7 @@ const App = () => {
   };
 
   return (
-    <BrowserRouter>
+<BrowserRouter>
       <div className="min-h-screen bg-background">
         <Header 
           currentAddress={currentAddress}
@@ -110,7 +111,8 @@ path="/account"
               element={<FavoritesPage />} 
             />
           </Routes>
-        </main>
+</main>
+        <ChatWidget />
         
         <BottomNavigation cartItemCount={cartItemCount} />
         
