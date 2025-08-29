@@ -13,6 +13,8 @@
     "isBestSeller": true,
     "image": null,
     "customizable": true,
+    "ingredients": ["Wheat Flour", "Mozzarella Cheese", "Fresh Basil", "Tomato Sauce", "Olive Oil", "Salt", "Yeast"],
+    "allergens": ["gluten", "dairy"],
     "addOns": [
       {"name": "Extra Cheese", "price": 50},
       {"name": "Mushrooms", "price": 30},
@@ -33,6 +35,8 @@
     "isBestSeller": false,
     "image": null,
     "customizable": true,
+    "ingredients": ["Wheat Flour", "Mozzarella Cheese", "Pepperoni", "Tomato Sauce", "Olive Oil", "Salt", "Yeast", "Spices"],
+    "allergens": ["gluten", "dairy", "soy"],
     "addOns": [
       {"name": "Extra Pepperoni", "price": 60},
       {"name": "Extra Cheese", "price": 50}
@@ -52,6 +56,8 @@
     "isBestSeller": false,
     "image": null,
     "customizable": false,
+    "ingredients": ["Wheat Flour", "Butter", "Garlic", "Herbs", "Salt", "Yeast"],
+    "allergens": ["gluten", "dairy"],
     "addOns": []
   },
   {
@@ -68,6 +74,8 @@
     "isBestSeller": true,
     "image": null,
     "customizable": true,
+    "ingredients": ["Beef Patty", "Burger Bun", "Lettuce", "Tomato", "Onion", "Special Sauce", "Pickles"],
+    "allergens": ["gluten", "eggs", "soy"],
     "addOns": [
       {"name": "Extra Patty", "price": 80},
       {"name": "Cheese Slice", "price": 30},
@@ -88,6 +96,8 @@
     "isBestSeller": false,
     "image": null,
     "customizable": true,
+    "ingredients": ["Plant-based Patty", "Burger Bun", "Lettuce", "Tomato", "Onion", "Avocado", "Vegan Mayo"],
+    "allergens": ["gluten", "soy"],
     "addOns": [
       {"name": "Avocado", "price": 40},
       {"name": "Cheese Slice", "price": 30}
@@ -101,12 +111,14 @@
     "price": 99,
     "originalPrice": null,
     "category": "Sides",
-    "dietary": ["veg"],
+    "dietary": ["veg", "jain"],
     "spiceLevel": 0,
     "isPopular": true,
     "isBestSeller": false,
     "image": null,
     "customizable": false,
+    "ingredients": ["Potatoes", "Vegetable Oil", "Salt"],
+    "allergens": [],
     "addOns": []
   },
   {
@@ -123,6 +135,8 @@
     "isBestSeller": true,
     "image": null,
     "customizable": false,
+    "ingredients": ["Paneer", "Tomatoes", "Onions", "Cream", "Butter", "Ginger", "Garlic", "Spices"],
+    "allergens": ["dairy"],
     "addOns": []
   },
   {
@@ -139,6 +153,8 @@
     "isBestSeller": false,
     "image": null,
     "customizable": false,
+    "ingredients": ["Wheat Flour", "Yogurt", "Garlic", "Butter", "Salt", "Baking Powder"],
+    "allergens": ["gluten", "dairy"],
     "addOns": []
   },
   {
@@ -155,6 +171,8 @@
     "isBestSeller": true,
     "image": null,
     "customizable": false,
+    "ingredients": ["Chicken", "Peanuts", "Bell Peppers", "Onions", "Garlic", "Ginger", "Soy Sauce", "Chili Oil"],
+    "allergens": ["nuts", "soy"],
     "addOns": []
   },
   {
@@ -171,6 +189,8 @@
     "isBestSeller": false,
     "image": null,
     "customizable": false,
+    "ingredients": ["Basmati Rice", "Mixed Vegetables", "Soy Sauce", "Garlic", "Ginger", "Spring Onions", "Oil"],
+    "allergens": ["soy"],
     "addOns": []
   },
   {
@@ -187,6 +207,8 @@
     "isBestSeller": true,
     "image": null,
     "customizable": true,
+    "ingredients": ["Quinoa", "Roasted Vegetables", "Tahini", "Lemon", "Olive Oil", "Salt", "Herbs"],
+    "allergens": ["sesame"],
     "addOns": [
       {"name": "Avocado", "price": 50},
       {"name": "Grilled Chicken", "price": 80}
@@ -200,12 +222,50 @@
     "price": 149,
     "originalPrice": null,
     "category": "Beverages",
-    "dietary": ["veg", "healthy"],
+    "dietary": ["veg", "healthy", "jain"],
     "spiceLevel": 0,
     "isPopular": false,
     "isBestSeller": false,
     "image": null,
     "customizable": false,
+    "ingredients": ["Fresh Spinach", "Apple", "Banana", "Mint Leaves", "Water"],
+    "allergens": [],
+    "addOns": []
+  },
+  {
+    "Id": 13,
+    "restaurantId": 3,
+    "name": "Jain Special Thali",
+    "description": "Complete Jain meal with no onion, garlic, potatoes or root vegetables",
+    "price": 429,
+    "originalPrice": null,
+    "category": "Thali",
+    "dietary": ["veg", "jain"],
+    "spiceLevel": 2,
+    "isPopular": true,
+    "isBestSeller": false,
+    "image": null,
+    "customizable": false,
+    "ingredients": ["Paneer Curry", "Dal", "Cabbage Sabzi", "Chapati", "Rice", "Pickle", "Papad", "Sweet"],
+    "allergens": ["gluten", "dairy"],
+    "addOns": []
+  },
+  {
+    "Id": 14,
+    "restaurantId": 5,
+    "name": "Gluten-Free Pasta",
+    "description": "Delicious pasta made with rice flour, served with vegetables",
+    "price": 329,
+    "originalPrice": null,
+    "category": "Pasta",
+    "dietary": ["veg"],
+    "spiceLevel": 1,
+    "isPopular": false,
+    "isBestSeller": false,
+    "image": null,
+    "customizable": false,
+    "ingredients": ["Rice Flour Pasta", "Mixed Vegetables", "Olive Oil", "Herbs", "Tomatoes"],
+    "allergens": [],
     "addOns": []
   }
 ]

@@ -1,23 +1,34 @@
-import { useState } from "react";
+import React, { useState } from "react";
 import { motion } from "framer-motion";
 import { toast } from "react-toastify";
+import { cn } from "@/utils/cn";
+import ApperIcon from "@/components/ApperIcon";
 import Card from "@/components/atoms/Card";
 import Button from "@/components/atoms/Button";
 import Badge from "@/components/atoms/Badge";
-import ApperIcon from "@/components/ApperIcon";
 
 const DishCard = ({ dish, onAddToCart, className }) => {
-  const [quantity, setQuantity] = useState(0);
+const [quantity, setQuantity] = useState(0);
   const [showCustomization, setShowCustomization] = useState(false);
+  const [showAllergenInfo, setShowAllergenInfo] = useState(false);
 
   const getDietaryBadge = () => {
+const badges = [];
+    
     if (dish.dietary?.includes("veg")) {
-      return <Badge variant="veg" size="xs"><ApperIcon name="Leaf" size={10} />Veg</Badge>;
+      badges.push(<Badge key="veg" variant="veg" size="xs"><ApperIcon name="Leaf" size={10} />Veg</Badge>);
     }
     if (dish.dietary?.includes("non-veg")) {
-      return <Badge variant="nonveg" size="xs"><ApperIcon name="Drumstick" size={10} />Non-Veg</Badge>;
+      badges.push(<Badge key="non-veg" variant="nonveg" size="xs"><ApperIcon name="Drumstick" size={10} />Non-Veg</Badge>);
     }
-    return null;
+    if (dish.dietary?.includes("jain")) {
+      badges.push(<Badge key="jain" variant="jain" size="xs"><ApperIcon name="Heart" size={10} />Jain</Badge>);
+    }
+    if (dish.allergens && dish.allergens.length === 0) {
+      badges.push(<Badge key="allergen-free" variant="allergen-free" size="xs"><ApperIcon name="Shield" size={10} />Allergen-Free</Badge>);
+    }
+    
+    return badges.length > 0 ? badges : null;
   };
 
   const handleAddToCart = () => {
@@ -54,7 +65,7 @@ const DishCard = ({ dish, onAddToCart, className }) => {
           <div className="flex-1">
             <div className="flex items-start gap-2 mb-2">
               <div className="flex-1">
-                <div className="flex items-center gap-2 mb-1">
+<div className="flex flex-wrap items-center gap-2 mb-2">
                   {getDietaryBadge()}
                   {hasBestSeller && (
                     <Badge variant="accent" size="xs">
@@ -66,6 +77,12 @@ const DishCard = ({ dish, onAddToCart, className }) => {
                     <Badge variant="warning" size="xs">
                       <ApperIcon name="Flame" size={10} />
                       Popular
+                    </Badge>
+                  )}
+                  {dish.allergens && dish.allergens.length > 0 && (
+                    <Badge variant="danger" size="xs">
+                      <ApperIcon name="AlertTriangle" size={10} />
+                      Contains Allergens
                     </Badge>
                   )}
                 </div>
@@ -98,15 +115,27 @@ const DishCard = ({ dish, onAddToCart, className }) => {
               {dish.description}
             </p>
             
-            {dish.addOns && dish.addOns.length > 0 && (
-              <button
-                onClick={() => setShowCustomization(!showCustomization)}
-                className="text-xs text-primary-600 hover:text-primary-700 font-medium mb-3 flex items-center gap-1"
-              >
-                <ApperIcon name="Plus" size={12} />
-                Customizable
-              </button>
-            )}
+<div className="flex flex-wrap gap-2 mb-3">
+              {dish.addOns && dish.addOns.length > 0 && (
+                <button
+                  onClick={() => setShowCustomization(!showCustomization)}
+                  className="text-xs text-primary-600 hover:text-primary-700 font-medium flex items-center gap-1"
+                >
+                  <ApperIcon name="Plus" size={12} />
+                  Customizable
+                </button>
+              )}
+              
+              {(dish.ingredients || dish.allergens) && (
+                <button
+                  onClick={() => setShowAllergenInfo(!showAllergenInfo)}
+                  className="text-xs text-blue-600 hover:text-blue-700 font-medium flex items-center gap-1"
+                >
+                  <ApperIcon name="Info" size={12} />
+                  View Ingredients
+                </button>
+              )}
+            </div>
             
             {/* Quantity Controls */}
             {quantity === 0 ? (
@@ -157,7 +186,7 @@ const DishCard = ({ dish, onAddToCart, className }) => {
         </div>
         
         {/* Customization Options */}
-        {showCustomization && dish.addOns && dish.addOns.length > 0 && (
+{showCustomization && dish.addOns && dish.addOns.length > 0 && (
           <motion.div
             initial={{ height: 0, opacity: 0 }}
             animate={{ height: "auto", opacity: 1 }}
@@ -177,6 +206,69 @@ const DishCard = ({ dish, onAddToCart, className }) => {
                 </label>
               ))}
             </div>
+          </motion.div>
+        )}
+
+        {showAllergenInfo && (dish.ingredients || dish.allergens) && (
+          <motion.div
+            initial={{ height: 0, opacity: 0 }}
+            animate={{ height: "auto", opacity: 1 }}
+            exit={{ height: 0, opacity: 0 }}
+            className="border-t border-gray-100 p-4 bg-blue-50"
+          >
+            <h5 className="font-medium text-secondary-700 mb-3 flex items-center gap-2">
+              <ApperIcon name="List" size={16} />
+              Ingredients & Allergen Information
+            </h5>
+            
+            {dish.ingredients && dish.ingredients.length > 0 && (
+              <div className="mb-4">
+                <p className="text-xs font-medium text-gray-600 mb-2">INGREDIENTS:</p>
+                <div className="flex flex-wrap gap-1">
+                  {dish.ingredients.map((ingredient, index) => {
+                    const isAllergen = dish.allergens?.includes(ingredient.toLowerCase());
+                    return (
+                      <span
+                        key={index}
+                        className={cn(
+                          "px-2 py-1 rounded-full text-xs font-medium",
+                          isAllergen 
+                            ? "bg-red-100 text-red-700 border border-red-200" 
+                            : "bg-gray-100 text-gray-700"
+                        )}
+                      >
+                        {ingredient}
+                        {isAllergen && <ApperIcon name="AlertTriangle" size={12} className="ml-1 inline" />}
+                      </span>
+                    );
+                  })}
+                </div>
+              </div>
+            )}
+
+            {dish.allergens && dish.allergens.length > 0 && (
+              <div className="bg-red-50 border border-red-200 rounded-lg p-3">
+                <p className="text-xs font-bold text-red-600 mb-2 flex items-center gap-1">
+                  <ApperIcon name="AlertTriangle" size={14} />
+                  ALLERGEN WARNING:
+                </p>
+                <p className="text-sm text-red-700">
+                  This dish contains: {dish.allergens.join(', ')}
+                </p>
+                <p className="text-xs text-red-600 mt-1">
+                  Please inform staff of any allergies before ordering.
+                </p>
+              </div>
+            )}
+
+            {(!dish.allergens || dish.allergens.length === 0) && (
+              <div className="bg-green-50 border border-green-200 rounded-lg p-3">
+                <p className="text-sm text-green-700 flex items-center gap-2">
+                  <ApperIcon name="Shield" size={16} />
+                  This dish is free from common allergens.
+                </p>
+              </div>
+            )}
           </motion.div>
         )}
       </Card>

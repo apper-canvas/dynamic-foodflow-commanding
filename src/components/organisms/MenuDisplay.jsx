@@ -1,10 +1,11 @@
-import { useState } from "react";
+import React, { useState } from "react";
 import { motion } from "framer-motion";
+import ApperIcon from "@/components/ApperIcon";
 import DishCard from "@/components/molecules/DishCard";
-import Loading from "@/components/ui/Loading";
 import Error from "@/components/ui/Error";
 import Empty from "@/components/ui/Empty";
-import ApperIcon from "@/components/ApperIcon";
+import Loading from "@/components/ui/Loading";
+import Badge from "@/components/ui/Badge";
 
 const MenuDisplay = ({ 
   menu = [], 
@@ -12,7 +13,8 @@ const MenuDisplay = ({
   error, 
   onAddToCart, 
   onRetry,
-  className = "" 
+  className = "",
+  dietaryFilters = []
 }) => {
   const [activeCategory, setActiveCategory] = useState("all");
 
@@ -52,12 +54,48 @@ const MenuDisplay = ({
 
   const categories = ["all", ...Object.keys(categorizedMenu)];
   
-  const filteredItems = activeCategory === "all" 
-    ? menu 
-    : categorizedMenu[activeCategory] || [];
+// Apply dietary filters
+  const dietaryFilteredMenu = menu.filter(item => {
+    if (dietaryFilters.length === 0) return true;
+    
+    return dietaryFilters.some(filter => {
+      switch (filter) {
+        case 'veg':
+          return item.dietary?.includes('veg');
+        case 'non-veg':
+          return item.dietary?.includes('non-veg');
+        case 'jain':
+          return item.dietary?.includes('jain');
+        case 'allergen-free':
+          return !item.allergens || item.allergens.length === 0;
+        default:
+          return true;
+      }
+    });
+  });
 
+  const filteredItems = activeCategory === "all" 
+    ? dietaryFilteredMenu 
+    : dietaryFilteredMenu.filter(item => item.category === activeCategory);
   return (
-    <div className={className}>
+<div className={className}>
+      {/* Dietary Filters */}
+      {dietaryFilters.length > 0 && (
+        <div className="mb-4 p-4 bg-blue-50 rounded-lg border border-blue-200">
+          <p className="text-sm font-medium text-blue-700 mb-2">Active Dietary Filters:</p>
+          <div className="flex flex-wrap gap-2">
+            {dietaryFilters.map(filter => (
+              <Badge key={filter} variant="info" size="sm">
+                {filter === 'veg' ? 'Vegetarian' : 
+                 filter === 'non-veg' ? 'Non-Vegetarian' : 
+                 filter === 'jain' ? 'Jain' : 
+                 'Allergen-Free'}
+              </Badge>
+            ))}
+          </div>
+        </div>
+      )}
+      
       {/* Category Navigation */}
       {categories.length > 2 && (
         <div className="sticky top-0 z-30 bg-white/95 backdrop-blur-sm py-4 mb-6 border-b border-gray-100">
@@ -79,8 +117,8 @@ const MenuDisplay = ({
                   size={16} 
                 />
                 {category === "all" ? "All Items" : category}
-                <span className="bg-white/20 text-xs px-1.5 py-0.5 rounded-full">
-                  {category === "all" ? menu.length : categorizedMenu[category]?.length || 0}
+<span className="bg-white/20 text-xs px-1.5 py-0.5 rounded-full">
+                  {category === "all" ? dietaryFilteredMenu.length : dietaryFilteredMenu.filter(item => item.category === category).length}
                 </span>
               </motion.button>
             ))}
